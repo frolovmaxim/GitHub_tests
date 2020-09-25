@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="Testing GitHub">
+    <listeners>
+        <listener class-name="ListenerTest" />
+    </listeners>
+    <test name="Chrome test">
+    <parameter name="browser" value="chrome" />
+        <groups>
+            <run>
+                <include name="firstGroup" />
+            </run>
+        </groups>
+        <classes>
+            <class name="LoginPageTest" />
+            <class name="MainPageTest" />
+        </classes>
+
+    </test>
+    <test name="Firefox test">
+        <parameter name="browser" value="firefox" />
+        <groups>
+            <run>
+                <include name="firstGroup" />
+            </run>
+        </groups>
+        <classes>
+            <class name="LoginPageTest" />
+            <class name="MainPageTest" />
+        </classes>
+    </test>
+</suite>
