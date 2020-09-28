@@ -6,11 +6,11 @@
     </listeners>
     <test name="Chrome test">
     <parameter name="browser" value="chrome" />
-        <groups>
+        <!--<groups>
             <run>
                 <include name="firstGroup" />
             </run>
-        </groups>
+        </groups>-->
         <classes>
             <class name="LoginPageTest" />
             <class name="MainPageTest" />
@@ -19,11 +19,11 @@
     </test>
     <test name="Firefox test">
         <parameter name="browser" value="firefox" />
-        <groups>
+        <!--<groups>
             <run>
                 <include name="firstGroup" />
             </run>
-        </groups>
+        </groups>-->
         <classes>
             <class name="LoginPageTest" />
             <class name="MainPageTest" />

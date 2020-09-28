@@ -10,6 +10,7 @@ import java.util.concurrent.TimeUnit;
 
 public class LoginPageTest {
     private WebDriver driver;
+    private GitHubSite gitHubSite;
     private LoginPage loginPage;
     private AccountPage accountPage;
     private CreateAccountPage createAccountPage;
@@ -39,6 +40,8 @@ public class LoginPageTest {
         driver.manage().window().maximize();
         driver.get("https://github.com/login");
         //JavascriptExecutor js = (JavascriptExecutor) driver;
+        gitHubSite = new GitHubSite(driver);
+
         loginPage = PageFactory.initElements(driver, LoginPage.class);
         accountPage = PageFactory.initElements(driver, AccountPage.class);
         createAccountPage = PageFactory.initElements(driver, CreateAccountPage.class);
@@ -51,58 +54,59 @@ public class LoginPageTest {
 
     @Test (groups = {"firstGroup"})
     public void testLoginUser(){
-        loginPage.loginToAccount("frolovmaxim", "101323An");
-        boolean result = accountPage.avatarDisplayed();
+        gitHubSite.loginPage().loginToAccount("frolovmaxim", "101323An");
+        boolean result = gitHubSite.accountPage().avatarDisplayed();
         Assert.assertTrue(result);
     }
 
     @Test
     public void testCreateAccountLink(){
-        loginPage.clickCreateAccountLink();
-        String createAccountPageTitleText = createAccountPage.getTitleText();
+        gitHubSite.loginPage().clickCreateAccountLink();
+        String createAccountPageTitleText = gitHubSite.createAccountPage().getTitleText();
         Assert.assertEquals(createAccountPageTitleText, "Create your account");
     }
 
     @Test
     public void testForgotPasswordLink(){
-        loginPage.clickForgotPasswordLink();
-        String forgotPasswordPageTitleText = resetYourPasswordPage.getResetYourPasswordPageTitle();
+        gitHubSite.loginPage().clickForgotPasswordLink();
+        String forgotPasswordPageTitleText = gitHubSite.resetYourPasswordPage().getResetYourPasswordPageTitle();
         Assert.assertEquals(forgotPasswordPageTitleText, "Reset your password");
     }
 
     @Test
     public void testTermsLink(){
-        loginPage.clickTermsLink();
-        String gitHubTermsOfServiceText = termsOfServicePage.getGitHubTermsOfServiceTitle();
+        gitHubSite.loginPage().clickTermsLink();
+        String gitHubTermsOfServiceText = gitHubSite.termsOfServicePage().getGitHubTermsOfServiceTitle();
         Assert.assertEquals(gitHubTermsOfServiceText, "GitHub Terms of Service");
     }
 
     @Test
     public void testPrivacyLink(){
-        loginPage.clickPrivacyLink();
-        String gitHubPrivacyStatementText = privacyStatementPage.getPrivacyStatementTitleText();
+        gitHubSite.loginPage().clickPrivacyLink();
+        String gitHubPrivacyStatementText = gitHubSite.privacyStatementPage().getPrivacyStatementTitleText();
         Assert.assertEquals(gitHubPrivacyStatementText, "GitHub Privacy Statement");
     }
 
     @Test (groups = {"firstGroup"})
     public void testSecurityLink(){
-        loginPage.clickSecurityLink();
-        String gitHubSecurityText = securityPage.getSecurityTitleText();
+        gitHubSite.loginPage().clickSecurityLink();
+        String gitHubSecurityText = gitHubSite.securityPage().getSecurityTitleText();
         Assert.assertEquals(gitHubSecurityText, "Security at GitHub");
     }
 
     @Test
     public void testContactLink() {
-        loginPage.clickContactLink();
+        gitHubSite.loginPage().clickContactLink();
         //Thread.sleep(4000);
         //js.executeScript("window.scrollBy(0,10000)");
-        String contactUsButtonText = contactPage.getContactUrl();
+        String contactUsButtonText = gitHubSite.contactPage().getContactUrl();
         Assert.assertEquals(contactUsButtonText, "https://support.github.com/");
     }
 
 
     @AfterMethod (groups = {"firstGroup"})
     public void tearDown(){
+        if (driver != null)
         driver.quit();
     }
 
