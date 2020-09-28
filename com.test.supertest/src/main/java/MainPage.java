@@ -14,10 +14,10 @@ public class MainPage {
         PageFactory.initElements(driver, this);
     }
 
-    @FindBy(xpath = "//a[text()='Sign in']")
+    @FindBy(xpath = "//a[@href='/login']")
     private WebElement signInButton;
 
-    @FindBy(xpath = "//a[text()='Sign up']")
+    @FindBy(xpath = "//a[contains(@href,'/join?ref') and contains(@class, 'HeaderMenu-link')]")
     private WebElement signUpButton;
 
     @FindBy(xpath = "//input[@id='user[login]']")

@@ -89,8 +89,6 @@ public class LoginPage {
         return new ContactPage(driver);
     }
 
-
-
     public AccountPage loginToAccount(String username, String password){
         this.typeUserNameLoginPage(username);
         this.typePasswordLoginPage(password);
@@ -98,9 +96,8 @@ public class LoginPage {
         return new AccountPage(driver);
     }
 
-    public LoginPage getLoginPageTitle(){
-        loginPageTitle.getText();
-        return this;
+    public String getLoginPageTitle(){
+        return loginPageTitle.getText();
     }
 
 }

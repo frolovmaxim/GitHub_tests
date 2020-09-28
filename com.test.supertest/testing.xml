@@ -8,7 +8,7 @@
     <parameter name="browser" value="chrome" />
         <!--<groups>
             <run>
-                <include name="firstGroup" />
+                <include name="testSignUp" />
             </run>
         </groups>-->
         <classes>
@@ -21,7 +21,7 @@
         <parameter name="browser" value="firefox" />
         <!--<groups>
             <run>
-                <include name="firstGroup" />
+                <include name="testSignUp" />
             </run>
         </groups>-->
         <classes>

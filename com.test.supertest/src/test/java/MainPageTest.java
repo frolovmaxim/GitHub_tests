@@ -15,7 +15,7 @@ public class MainPageTest {
     //private CreateAccountPage createAccountPage;
     //private TrialPlanPage trialPlanPage;
 
-    @BeforeMethod (groups = {"firstGroup"})
+    @BeforeMethod (groups = {"firstGroup", "testSignUp"})
     @Parameters("browser")
     public void setUp(String browser) throws Exception{
         if(browser.equalsIgnoreCase("chrome")) {
@@ -71,7 +71,21 @@ public class MainPageTest {
         Assert.assertEquals(pickYourTrialText, "Pick your trial plan");
     }
 
-    @AfterMethod (groups = {"firstGroup"})
+    @Test (groups = {"testSignUp"})
+    public void checkSignUpLink(){
+        gitHubSite.mainPage().clickSignUp();
+        String signUpPageTitle = gitHubSite.signUpPage().getSignUpPageTitle();
+        Assert.assertEquals(signUpPageTitle, "Create your account");
+    }
+
+    @Test (groups = {"testSignUp"})
+    public void checkSignInLink(){
+        gitHubSite.mainPage().clickSignIn();
+        String loginPageTitle = gitHubSite.loginPage().getLoginPageTitle();
+        Assert.assertEquals(loginPageTitle, "Sign in to GitHub");
+    }
+
+    @AfterMethod (groups = {"firstGroup", "testSignUp"})
     public void tearDown(){
         if (driver != null)
         driver.quit();
