@@ -71,18 +71,25 @@ public class MainPageTest {
         Assert.assertEquals(pickYourTrialText, "Pick your trial plan");
     }
 
-    @Test (groups = {"testSignUp"})
+    @Test //(groups = {"testSignUp"})
     public void checkSignUpLink(){
         gitHubSite.mainPage().clickSignUp();
         String signUpPageTitle = gitHubSite.signUpPage().getSignUpPageTitle();
         Assert.assertEquals(signUpPageTitle, "Create your account");
     }
 
-    @Test (groups = {"testSignUp"})
+    @Test //(groups = {"testSignUp"})
     public void checkSignInLink(){
         gitHubSite.mainPage().clickSignIn();
         String loginPageTitle = gitHubSite.loginPage().getLoginPageTitle();
         Assert.assertEquals(loginPageTitle, "Sign in to GitHub");
+    }
+
+    @Test (groups = {"testSignUp"})
+    public void goToActionsDropDownMenuTest(){
+        gitHubSite.mainPage().goToWhyGitHubDropDownMenu();
+        String actionTitleText = gitHubSite.actionsPage().getTitleActionsText();
+        Assert.assertEquals(actionTitleText, "GitHub Actions");
     }
 
     @AfterMethod (groups = {"firstGroup", "testSignUp"})

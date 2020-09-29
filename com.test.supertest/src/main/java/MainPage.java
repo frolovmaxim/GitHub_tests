@@ -1,17 +1,22 @@
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.ui.ExpectedCondition;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
-
+import org.openqa.selenium.interactions.Actions;
 public class MainPage {
     private WebDriver driver;
     private WebDriverWait wait;
+    private Actions builder;
 
     public MainPage(WebDriver webDriver) {
         this.driver = webDriver;
         wait = new WebDriverWait(driver, 30);
         PageFactory.initElements(driver, this);
+        builder = new Actions(driver);
     }
 
     @FindBy(xpath = "//a[@href='/login']")
@@ -43,6 +48,12 @@ public class MainPage {
 
     @FindBy (xpath = "//a[text() = 'Start a free trial']")
     private WebElement freeTrialButton;
+
+    @FindBy (xpath = "//summary[contains(text() , 'Why GitHub?')]")
+    private WebElement whyGitHubDropDownMenu;
+
+    @FindBy(xpath = "//a[text()= 'Actions']")
+    private WebElement actionsLink;
 
 
     public LoginPage clickSignIn(){
@@ -116,5 +127,11 @@ public class MainPage {
     public MainPage inputPassword(String password){
         this.typePassword(password);
         return this;
+    }
+
+    public ActionsPage goToWhyGitHubDropDownMenu(){
+        builder.moveToElement(whyGitHubDropDownMenu).build().perform();
+        actionsLink.click();
+        return new ActionsPage(driver);
     }
 }

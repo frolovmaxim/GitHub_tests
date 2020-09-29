@@ -50,4 +50,8 @@ public class GitHubSite {
     public TrialPlanPage trialPlanPage(){
         return new TrialPlanPage(driver);
     }
+
+    public ActionsPage actionsPage(){
+        return new ActionsPage(driver);
+    }
 }
