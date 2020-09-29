@@ -12,9 +12,21 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
+                <version>2.3.2</version>
                 <configuration>
-                    <source>6</source>
-                    <target>6</target>
+                    <source>1.8</source>
+                    <target>1.8</target>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>2.12</version>
+                <inherited>true</inherited>
+                <configuration>
+                    <suiteXmlFiles>
+                        <suiteXmlFile>testng-treads.xml</suiteXmlFile>
+                    </suiteXmlFiles>
                 </configuration>
             </plugin>
         </plugins>
@@ -32,11 +44,26 @@
             <artifactId>selenium-java</artifactId>
             <version>3.141.59</version>
         </dependency>
+
         <dependency>
-            <groupId>org.testng</groupId>
-            <artifactId>testng</artifactId>
-            <version>7.3.0</version>
-            <scope>compile</scope>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-site-plugin</artifactId>
+            <version>3.3</version>
+            <type>maven-plugin</type>
+        </dependency>
+
+        <dependency>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-install-plugin</artifactId>
+            <version>2.4</version>
+            <type>maven-plugin</type>
+        </dependency>
+
+        <dependency>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-deploy-plugin</artifactId>
+            <version>2.7</version>
+            <type>maven-plugin</type>
         </dependency>
     </dependencies>
 </project>
