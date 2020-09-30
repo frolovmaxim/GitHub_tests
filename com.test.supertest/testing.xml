@@ -6,13 +6,13 @@
     </listeners>
     <test name="Chrome test">
     <parameter name="browser" value="chrome" />
-        <!--<groups>
+        <groups>
             <run>
                 <include name="testSignUp" />
             </run>
-        </groups>-->
+        </groups>
         <classes>
-            <class name="LoginPageTest" />
+            <!--<class name="LoginPageTest" />-->
             <class name="MainPageTest" />
         </classes>
 
@@ -24,9 +24,9 @@
                 <include name="testSignUp" />
             </run>
         </groups>-->
-        <classes>
+        <!--<classes>
             <class name="LoginPageTest" />
             <class name="MainPageTest" />
-        </classes>
+        </classes>-->
     </test>
 </suite>

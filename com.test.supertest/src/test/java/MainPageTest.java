@@ -33,6 +33,7 @@ public class MainPageTest {
         driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
         driver.manage().window().maximize();
         driver.get("https://github.com/");
+        //driver.switchTo().frame(0);
         gitHubSite = new GitHubSite(driver);
         //mainPage = PageFactory.initElements(driver, MainPage.class);
         //createAccountPage = PageFactory.initElements(driver, CreateAccountPage.class);

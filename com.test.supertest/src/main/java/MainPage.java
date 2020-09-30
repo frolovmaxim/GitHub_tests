@@ -49,7 +49,7 @@ public class MainPage {
     @FindBy (xpath = "//a[text() = 'Start a free trial']")
     private WebElement freeTrialButton;
 
-    @FindBy (xpath = "//summary[contains(text() , 'Why GitHub?')]")
+    @FindBy (xpath = "//summary[contains(text(),'Why GitHub?')]")
     private WebElement whyGitHubDropDownMenu;
 
     @FindBy(xpath = "//a[text()= 'Actions']")
@@ -130,7 +130,8 @@ public class MainPage {
     }
 
     public ActionsPage goToWhyGitHubDropDownMenu(){
-        builder.moveToElement(whyGitHubDropDownMenu).build().perform();
+        //builder.moveToElement(whyGitHubDropDownMenu).click().perform();
+        whyGitHubDropDownMenu.click();
         actionsLink.click();
         return new ActionsPage(driver);
     }
