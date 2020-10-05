@@ -13,7 +13,6 @@ public class LoginPageTest {
     private GitHubSite gitHubSite;
     private LoginPage loginPage;
     private AccountPage accountPage;
-    private CreateAccountPage createAccountPage;
     private ResetYourPasswordPage resetYourPasswordPage;
     private TermsOfServicePage termsOfServicePage;
     private PrivacyStatementPage privacyStatementPage;
@@ -62,7 +61,7 @@ public class LoginPageTest {
     @Test
     public void testCreateAccountLink(){
         gitHubSite.loginPage().clickCreateAccountLink();
-        String createAccountPageTitleText = gitHubSite.createAccountPage().getTitleText();
+        String createAccountPageTitleText = gitHubSite.signUpPage().getSignUpPageTitle();
         Assert.assertEquals(createAccountPageTitleText, "Create your account");
     }
 

@@ -12,7 +12,7 @@
             </run>
         </groups>-->
         <classes>
-            <class name="LoginPageTest" />
+            <!--<class name="LoginPageTest" />-->
             <class name="MainPageTest" />
         </classes>
 
@@ -25,7 +25,7 @@
             </run>
         </groups>-->
         <classes>
-            <class name="LoginPageTest" />
+            <!--<class name="LoginPageTest" />-->
             <class name="MainPageTest" />
         </classes>
     </test>

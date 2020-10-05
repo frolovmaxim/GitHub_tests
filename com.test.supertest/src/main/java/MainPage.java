@@ -7,6 +7,7 @@ import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.openqa.selenium.interactions.Actions;
+
 public class MainPage {
     private WebDriver driver;
     private WebDriverWait wait;
@@ -106,12 +107,12 @@ public class MainPage {
 
 
 
-    public CreateAccountPage register(String username, String email, String password){
+    public SignUpPage register(String username, String email, String password){
         this.typeUserName(username);
         this.typeEmail(email);
         this.typePassword(password);
         this.clickSignUpForm();
-        return new CreateAccountPage(driver);
+        return new SignUpPage(driver);
     }
 
     public MainPage inputUsername(String username){

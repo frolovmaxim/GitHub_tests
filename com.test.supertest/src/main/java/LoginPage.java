@@ -59,9 +59,9 @@ public class LoginPage {
         return new AccountPage(driver);
     }
 
-    public CreateAccountPage clickCreateAccountLink(){
+    public SignUpPage clickCreateAccountLink(){
         createAccountLink.click();
-        return new CreateAccountPage(driver);
+        return new SignUpPage(driver);
     }
 
     public ResetYourPasswordPage clickForgotPasswordLink(){

@@ -19,10 +19,6 @@ public class GitHubSite {
         return new ContactPage(driver);
     }
 
-    public CreateAccountPage createAccountPage(){
-        return new CreateAccountPage(driver);
-    }
-
     public LoginPage loginPage(){
         return new LoginPage(driver);
     }
