@@ -40,7 +40,7 @@ public class MainPageTest {
         //trialPlanPage = PageFactory.initElements(driver, TrialPlanPage.class);
     }
 
-    @Test
+    @Test (enabled = false)
     public void registerUser(){
         gitHubSite.mainPage().register("archfucker1", "dsffwefee@dfdsa.com", "101323Ax");
         String titleText = gitHubSite.signUpPage().getSignUpPageTitle();
@@ -91,6 +91,13 @@ public class MainPageTest {
         gitHubSite.mainPage().goToWhyGitHubDropDownMenu();
         String actionTitleText = gitHubSite.actionsPage().getTitleActionsText();
         Assert.assertEquals(actionTitleText, "GitHub Actions");
+    }
+
+    @Test
+    public void siteMapLinkTest(){
+        gitHubSite.mainPage().clickSiteMap();
+        String siteMapTitleText = gitHubSite.siteMapPage().getSiteMapTitle();
+        Assert.assertEquals(siteMapTitleText, "Site Map");
     }
 
     @AfterMethod (groups = {"firstGroup", "testSignUp"})

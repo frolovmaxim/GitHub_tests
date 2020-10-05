@@ -50,4 +50,8 @@ public class GitHubSite {
     public ActionsPage actionsPage(){
         return new ActionsPage(driver);
     }
+
+    public SiteMapPage siteMapPage(){
+        return new SiteMapPage(driver);
+    }
 }

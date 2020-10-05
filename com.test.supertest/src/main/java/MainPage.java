@@ -56,10 +56,18 @@ public class MainPage {
     @FindBy(xpath = "//a[text()= 'Actions']")
     private WebElement actionsLink;
 
+    @FindBy(xpath = "//a[text()='Site Map']")
+    private WebElement siteMapLink;
+
 
     public LoginPage clickSignIn(){
         signInButton.click();
         return new LoginPage(driver);
+    }
+
+    public SiteMapPage clickSiteMap(){
+        siteMapLink.click();
+        return new SiteMapPage(driver);
     }
 
     public SignUpPage clickSignUp(){
