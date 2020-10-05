@@ -54,4 +54,8 @@ public class GitHubSite {
     public SiteMapPage siteMapPage(){
         return new SiteMapPage(driver);
     }
+
+    public SearchResultPage searchResultPage(){
+        return new SearchResultPage(driver);
+    }
 }

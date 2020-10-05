@@ -59,11 +59,24 @@ public class MainPage {
     @FindBy(xpath = "//a[text()='Site Map']")
     private WebElement siteMapLink;
 
+    @FindBy(xpath = "//form[@class= 'js-site-search-form']")
+    private WebElement searchField;
+
+    @FindBy(xpath = "//input[@aria-label = 'Search GitHub']")
+    private WebElement searchFieldInput;
 
     public LoginPage clickSignIn(){
         signInButton.click();
         return new LoginPage(driver);
     }
+
+    public SearchResultPage typeTextSearchField(String text){
+        searchField.click();
+        searchFieldInput.sendKeys(text);
+        searchField.submit();
+        return new SearchResultPage(driver);
+    }
+
 
     public SiteMapPage clickSiteMap(){
         siteMapLink.click();
