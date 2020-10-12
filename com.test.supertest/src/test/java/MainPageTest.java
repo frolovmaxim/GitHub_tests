@@ -11,9 +11,7 @@ import java.util.concurrent.TimeUnit;
 public class MainPageTest {
     private WebDriver driver;
     private GitHubSite gitHubSite;
-    //private MainPage mainPage;
-    //private CreateAccountPage createAccountPage;
-    //private TrialPlanPage trialPlanPage;
+
 
     @BeforeMethod (groups = {"firstGroup", "testSignUp"})
     @Parameters({"browser"})
@@ -33,11 +31,9 @@ public class MainPageTest {
         driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
         driver.manage().window().maximize();
         driver.get("https://github.com/");
-        //driver.switchTo().frame(0);
+
         gitHubSite = new GitHubSite(driver);
-        //mainPage = PageFactory.initElements(driver, MainPage.class);
-        //createAccountPage = PageFactory.initElements(driver, CreateAccountPage.class);
-        //trialPlanPage = PageFactory.initElements(driver, TrialPlanPage.class);
+
     }
 
     @Test (enabled = false)

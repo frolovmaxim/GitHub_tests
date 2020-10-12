@@ -11,13 +11,7 @@ import java.util.concurrent.TimeUnit;
 public class LoginPageTest {
     private WebDriver driver;
     private GitHubSite gitHubSite;
-    private LoginPage loginPage;
-    private AccountPage accountPage;
-    private ResetYourPasswordPage resetYourPasswordPage;
-    private TermsOfServicePage termsOfServicePage;
-    private PrivacyStatementPage privacyStatementPage;
-    private SecurityPage securityPage;
-    private ContactPage contactPage;
+
     //JavascriptExecutor js;
 
     @BeforeMethod (groups = {"firstGroup"})

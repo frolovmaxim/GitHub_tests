@@ -12,21 +12,23 @@
             </run>
         </groups>-->
         <classes>
+            <class name="SearchResultPageTest" />
             <!--<class name="LoginPageTest" />-->
-            <class name="MainPageTest" />
+            <!--<class name="MainPageTest" />-->
         </classes>
 
-    </test>
-    <test name="Firefox test">
-        <parameter name="browser" value="firefox" />
-        <!--<groups>
-            <run>
-                <include name="testSignUp" />
-            </run>
-        </groups>-->
+</test>
+<test name="Firefox test">
+    <parameter name="browser" value="firefox" />
+    <!--<groups>
+        <run>
+            <include name="testSignUp" />
+        </run>
+    </groups>-->
         <classes>
+            <class name="SearchResultPageTest" />
             <!--<class name="LoginPageTest" />-->
-            <class name="MainPageTest" />
+            <!--<class name="MainPageTest" />-->
         </classes>
     </test>
 </suite>
