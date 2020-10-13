@@ -1,3 +1,4 @@
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
@@ -43,6 +44,16 @@ public class SearchResultPageTest {
         gitHubSite.searchResultPage().clickIssueBarOption();
         String searchResultPageTitle = gitHubSite.searchResultPage().getPageTitle();
         Assert.assertEquals(searchResultPageTitle, "Search · common · GitHub");
+    }
+
+    @Test
+    public void checkPagination(){
+        gitHubSite.searchResultPage().sendSearchData("manual");
+        JavascriptExecutor js = (JavascriptExecutor) driver;
+        js.executeScript("window.scrollBy(0,document.body.scrollHeight)");
+        gitHubSite.searchResultPage().clickPageThree();
+        boolean isExist = gitHubSite.searchResultPage().pageTwoPagination();
+        Assert.assertTrue(isExist);
     }
 
 
