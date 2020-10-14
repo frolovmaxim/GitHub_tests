@@ -58,4 +58,8 @@ public class GitHubSite {
     public SearchResultPage searchResultPage(){
         return new SearchResultPage(driver);
     }
+
+    public AdvancedSearchPage advancedSearchPage(){
+        return new AdvancedSearchPage(driver);
+    }
 }

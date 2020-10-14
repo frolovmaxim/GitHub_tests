@@ -1,5 +1,7 @@
+
 import java.io.IOException;
 import java.text.ParseException;
+
 
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
@@ -17,6 +19,7 @@ import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 import org.testng.log4testng.Logger;
 
+@SuppressWarnings("ALL")
 public class TestCRUD {
         private String responseBody;
         public String responseBodyPOST;
@@ -45,7 +48,7 @@ public class TestCRUD {
          * @throws ParseException
          */
         @Test
-        public void addEmployee() throws IOException, ParseException {
+        public void addEmployee() throws IOException, ParseException, org.json.simple.parser.ParseException {
             String addURI = "http://dummy.restapiexample.com/api/v1/create";
             HttpHeaders headers = new HttpHeaders();
             headers.add("Accept", "application/json");
@@ -58,10 +61,10 @@ public class TestCRUD {
 
             //POST Method to Add New Employee
             response = this.restTemplate.postForEntity(addURI, entity, String.class);
-            responseBodyPOST = response.getBody();
+            responseBodyPOST = response.getBody().toString();
             // Write response to file
-            responseBody = response.getBody().toString();
-            System.out.println("responseBody ---&gt;" + responseBody);
+            responseBody = response.getBody();
+            System.out.println("responseBody --->" + responseBody);
             // Get ID from the Response object
             employeeId = getEmpIdFromResponse(responseBody);
             System.out.println("empId is :" + employeeId);
@@ -73,14 +76,24 @@ public class TestCRUD {
             logger.info("Employee is Added successfully employeeId:"+employeeId);
         }
 
-        /**
+    /**
+         * Method to get Employee ID from REsponse body
+         * I have used Json Simple API for Parsing the JSON object
+         *
+         * @return
+         */
+        public static String getEmpIdFromResponse() throws org.json.simple.parser.ParseException {
+            return getEmpIdFromResponse();
+        }
+
+    /**
          * Method to get Employee ID from REsponse body
          * I have used Json Simple API for Parsing the JSON object
          *
          * @param json
          * @return
          */
-        public static String getEmpIdFromResponse(String json) {
+        public static String getEmpIdFromResponse(String json) throws org.json.simple.parser.ParseException {
             JSONParser parser = new JSONParser();
             JSONObject jsonResponseObject = new JSONObject();
             Object obj = new Object();
@@ -90,7 +103,10 @@ public class TestCRUD {
                 e.printStackTrace();
             }
             jsonResponseObject = (JSONObject) obj;
-            String id = jsonResponseObject.get("id").toString();
+
+            JSONObject data = (JSONObject) jsonResponseObject.get("data");
+            String id = (String) data.get("id").toString();
+
             return id;
         }
         /**
@@ -109,6 +125,7 @@ public class TestCRUD {
 
             String jsonBody = responseBodyPOST;
 
+
             jsonBody = jsonBody.replace("zozo100", "update_zozo100");
 
             HttpHeaders headers = new HttpHeaders();
@@ -120,7 +137,7 @@ public class TestCRUD {
             //PUT Method to Update the existing Employee
             //NOTE that I have Not used restTemplate.put as it's void and we need response for verification
             response = restTemplate.exchange(updateURI, HttpMethod.PUT, entity, String.class);
-            responseBody = response.getBody().toString();
+            responseBody = response.getBody();
             System.out.println("Update Response Body :"+responseBody);
 
             // Check if the updated Employee is present in the response body.
@@ -154,7 +171,7 @@ public class TestCRUD {
             response = restTemplate.getForEntity(getURI,String.class);
 
             // Write response to file
-            responseBody = response.getBody().toString();
+            responseBody = response.getBody();
 
             //Suppressing for log diffs
             System.out.println("GET Response Body :"+responseBody);
@@ -209,8 +226,8 @@ public class TestCRUD {
             String successMessageText = null;
             try {
                 JSONParser parser = new JSONParser();
-                JSONObject jsonResponseObject = new JSONObject();
-                jsonResponseObject = (JSONObject) (parser.parse(json));
+
+                JSONObject jsonResponseObject = (JSONObject) (parser.parse(json));
                 String successMessage = jsonResponseObject.get("success").toString();
 
                 jsonResponseObject = (JSONObject) (parser.parse(successMessage));

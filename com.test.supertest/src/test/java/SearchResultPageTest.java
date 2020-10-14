@@ -38,7 +38,7 @@ public class SearchResultPageTest {
 
     }
 
-    @Test //(groups = {"testSignUp"})
+    @Test (enabled = false)//(groups = {"testSignUp"})
     public void checkIssuesBarOption(){
         gitHubSite.searchResultPage().sendSearchData("common");
         gitHubSite.searchResultPage().clickIssueBarOption();
@@ -46,7 +46,7 @@ public class SearchResultPageTest {
         Assert.assertEquals(searchResultPageTitle, "Search · common · GitHub");
     }
 
-    @Test
+    @Test (enabled = false)
     public void checkPagination(){
         gitHubSite.searchResultPage().sendSearchData("manual");
         JavascriptExecutor js = (JavascriptExecutor) driver;
@@ -54,6 +54,26 @@ public class SearchResultPageTest {
         gitHubSite.searchResultPage().clickPageThree();
         boolean isExist = gitHubSite.searchResultPage().pageTwoPagination();
         Assert.assertTrue(isExist);
+    }
+
+    @Test
+    public void checkAdvancedSearchLink(){
+        gitHubSite.searchResultPage().sendSearchData("sdfsdf");
+        JavascriptExecutor js = (JavascriptExecutor) driver;
+        js.executeScript("window.scrollBy(0,document.body.scrollHeight)");
+        gitHubSite.searchResultPage().clickAdvancedSearchLink();
+        boolean result = gitHubSite.advancedSearchPage().isAdvancedSearchOptionExist();
+        Assert.assertTrue(result);
+    }
+
+    @Test (enabled = false)
+    public void checkCheatSheetLink(){
+        gitHubSite.searchResultPage().sendSearchData("sdfsdf");
+        JavascriptExecutor js = (JavascriptExecutor) driver;
+        js.executeScript("window.scrollBy(0,document.body.scrollHeight)");
+        gitHubSite.searchResultPage().clickCheatSheetLink();
+        boolean result = gitHubSite.searchResultPage().isCheatSheetTitleExist();
+        Assert.assertTrue(result);
     }
 
 
