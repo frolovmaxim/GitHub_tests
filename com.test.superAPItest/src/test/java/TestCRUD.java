@@ -60,20 +60,20 @@ public class TestCRUD {
             HttpEntity<String> entity = new HttpEntity<String>(jsonBody, headers);
 
             //POST Method to Add New Employee
-            response = this.restTemplate.postForEntity(addURI, entity, String.class);
-            responseBodyPOST = response.getBody().toString();
+            this.response = this.restTemplate.postForEntity(addURI, entity, String.class);
+            this.responseBodyPOST = this.response.getBody().toString();
             // Write response to file
-            responseBody = response.getBody();
-            System.out.println("responseBody --->" + responseBody);
+            this.responseBody = this.response.getBody();
+            System.out.println("responseBody --->" + this.responseBody);
             // Get ID from the Response object
-            employeeId = getEmpIdFromResponse(responseBody);
-            System.out.println("empId is :" + employeeId);
+            this.employeeId = getEmpIdFromResponse(this.responseBody);
+            System.out.println("empId is :" + this.employeeId);
             // Check if the added Employee is present in the response body.
-            Assert.assertTrue(responseBody.contains(employeeId));
+            Assert.assertTrue(this.responseBody.contains(this.employeeId));
             // System.out.println(propertyFile.get("EmployeeAddResBody"));
             // Check if the status code is 201
-            Assert.assertEquals(response.getStatusCode(), HttpStatus.OK);
-            logger.info("Employee is Added successfully employeeId:"+employeeId);
+            Assert.assertEquals(this.response.getStatusCode(), HttpStatus.OK);
+            logger.info("Employee is Added successfully employeeId:" + this.employeeId);
         }
 
     /**
@@ -120,10 +120,10 @@ public class TestCRUD {
          */
         @Test(dependsOnMethods = "addEmployee", enabled = true)
         public void  updateEmployee() throws IOException, ParseException {
-            String updateURI = "http://dummy.restapiexample.com/api/v1/update/"+employeeId;
-            logger.info("Update URL :"+updateURI);
+            String updateURI = "http://dummy.restapiexample.com/api/v1/update/" + this.employeeId;
+            logger.info("Update URL :" + updateURI);
 
-            String jsonBody = responseBodyPOST;
+            String jsonBody = this.responseBody;
 
 
             jsonBody = jsonBody.replace("zozo100", "update_zozo100");
@@ -136,17 +136,17 @@ public class TestCRUD {
 
             //PUT Method to Update the existing Employee
             //NOTE that I have Not used restTemplate.put as it's void and we need response for verification
-            response = restTemplate.exchange(updateURI, HttpMethod.PUT, entity, String.class);
-            responseBody = response.getBody();
-            System.out.println("Update Response Body :"+responseBody);
+            this.response = this.restTemplate.exchange(updateURI, HttpMethod.PUT, entity, String.class);
+            this.responseBody = this.response.getBody();
+            System.out.println("Update Response Body :" + responseBody);
 
             // Check if the updated Employee is present in the response body.
-            Assert.assertTrue(responseBody.contains("update_zozo100"));
+            Assert.assertTrue(this.responseBody.contains("update_zozo100"));
 
             // Check if the status code is 200
-            Assert.assertEquals(response.getStatusCode(), HttpStatus.OK);
+            Assert.assertEquals(this.response.getStatusCode(), HttpStatus.OK);
 
-            logger.info("Employee Name is Updated successfully employeeId:"+employeeId);
+            logger.info("Employee Name is Updated successfully employeeId:" + this.employeeId);
 
         }
 
@@ -161,8 +161,9 @@ public class TestCRUD {
          */
         @Test(dependsOnMethods = "updateEmployee", enabled = true)
         void getEmployee() throws IOException, ParseException {
-            String getURI = "http://dummy.restapiexample.com/api/v1/employee/"+this.employeeId;
-            logger.info("Get URL :"+getURI);
+            employeeId = "23";
+            String getURI = "http://dummy.restapiexample.com/api/v1/employee/" + employeeId;
+            logger.info("Get URL :" + getURI);
 
             HttpHeaders headers = new HttpHeaders();
             HttpEntity<String> entity = new HttpEntity<String>(headers);
@@ -174,16 +175,16 @@ public class TestCRUD {
             responseBody = response.getBody();
 
             //Suppressing for log diffs
-            System.out.println("GET Response Body :"+responseBody);
+            System.out.println("GET Response Body :" + responseBody);
 
 
             // Check if the added Employee ID is present in the response body.
-            Assert.assertTrue(responseBody.contains("update_zozo100"));
+            Assert.assertTrue(responseBody.contains("Caesar Vance"));
 
             // Check if the status code is 200
             Assert.assertEquals(response.getStatusCode(), HttpStatus.OK);
 
-            logger.info("Employee is retrieved successfully employeeId:"+employeeId);
+            logger.info("Employee is retrieved successfully employeeId:" + employeeId);
 
         }
 
@@ -198,7 +199,8 @@ public class TestCRUD {
          */
         @Test(dependsOnMethods = "getEmployee", enabled = true)
         public void deleteEmployee() throws IOException, ParseException {
-            String delURI = "http://dummy.restapiexample.com/api/v1/delete/"+this.employeeId;
+            employeeId = "23";
+            String delURI = "http://dummy.restapiexample.com/api/v1/delete/" + employeeId;
             HttpHeaders headers = new HttpHeaders();
             HttpEntity<String> entity = new HttpEntity<String>(headers);
 
@@ -210,9 +212,9 @@ public class TestCRUD {
 
             responseBody = response.getBody();
 
-            Assert.assertEquals(getMessageFromResponse(responseBody), "successfully! deleted Records");
+            Assert.assertEquals(getMessageFromResponse(responseBody), "Successfully! Record has been deleted");
 
-            logger.info("Employee is Deleted successfully employeeId:"+employeeId);
+            logger.info("Employee is Deleted successfully employeeId:" + employeeId);
         }
 
         /**
@@ -223,19 +225,20 @@ public class TestCRUD {
          * @return text string
          */
         public static String getMessageFromResponse(String json) {
+            String successMessage = null;
             String successMessageText = null;
             try {
                 JSONParser parser = new JSONParser();
 
                 JSONObject jsonResponseObject = (JSONObject) (parser.parse(json));
-                String successMessage = jsonResponseObject.get("success").toString();
+                successMessage = jsonResponseObject.get("message").toString();
 
-                jsonResponseObject = (JSONObject) (parser.parse(successMessage));
-                successMessageText = jsonResponseObject.get("text").toString();
+                //jsonResponseObject = (JSONObject) (parser.parse(successMessage));
+                //successMessageText = jsonResponseObject.get("text").toString();
             } catch (org.json.simple.parser.ParseException e) {
                 e.printStackTrace();
             }
-            return successMessageText;
+            return successMessage;
         }
 
         @AfterTest

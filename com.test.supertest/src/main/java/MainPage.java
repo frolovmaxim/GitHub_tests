@@ -65,6 +65,9 @@ public class MainPage {
     @FindBy(xpath = "//input[@aria-label = 'Search GitHub']")
     private WebElement searchFieldInput;
 
+ //   @FindBy(xpath = "//a[@aria-label= 'Homepage' and @href='https://github.com/']")
+ //   private WebElement logoIcon;
+
     public LoginPage clickSignIn(){
         signInButton.click();
         return new LoginPage(driver);
@@ -125,7 +128,9 @@ public class MainPage {
         return errorPasswordMessage.getText();
     }
 
-
+    public String getMainPageTitle(){
+        return driver.getTitle();
+    }
 
 
     public SignUpPage register(String username, String email, String password){

@@ -56,7 +56,7 @@ public class SearchResultPageTest {
         Assert.assertTrue(isExist);
     }
 
-    @Test
+    @Test (enabled = false)
     public void checkAdvancedSearchLink(){
         gitHubSite.searchResultPage().sendSearchData("sdfsdf");
         JavascriptExecutor js = (JavascriptExecutor) driver;
@@ -74,6 +74,14 @@ public class SearchResultPageTest {
         gitHubSite.searchResultPage().clickCheatSheetLink();
         boolean result = gitHubSite.searchResultPage().isCheatSheetTitleExist();
         Assert.assertTrue(result);
+    }
+
+    @Test
+    public void checkLogoReturning(){
+        gitHubSite.searchResultPage().sendSearchData("common");
+        gitHubSite.searchResultPage().clickLogo();
+        String mainPageTitle = gitHubSite.mainPage().getMainPageTitle();
+        Assert.assertEquals(mainPageTitle, "GitHub: Where the world builds software · GitHub");
     }
 
 

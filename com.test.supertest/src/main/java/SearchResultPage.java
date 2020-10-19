@@ -38,6 +38,9 @@ public class SearchResultPage {
     @FindBy(xpath = "//h3[text()='Search cheat sheet' and @xpath = '1']")
     private WebElement cheatSheetTitle;
 
+    @FindBy(xpath = "//a[@aria-label= 'Homepage' and @href='https://github.com/']")
+    private WebElement logoIcon;
+
     public String getPageTitle (){
         return driver.getTitle();
     }
@@ -47,6 +50,11 @@ public class SearchResultPage {
         searchDataField.sendKeys(text);
         searchDataField.submit();
         return this;
+    }
+
+    public MainPage clickLogo(){
+        logoIcon.click();
+        return new MainPage(driver);
     }
 
     public AdvancedSearchPage clickAdvancedSearchLink(){
