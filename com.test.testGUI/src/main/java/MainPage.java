@@ -65,12 +65,20 @@ public class MainPage {
     @FindBy(xpath = "//input[@aria-label = 'Search GitHub']")
     private WebElement searchFieldInput;
 
+    @FindBy(xpath = "//a[text() = 'Contact Sales ']")
+    private WebElement contactSalesLink;
+
  //   @FindBy(xpath = "//a[@aria-label= 'Homepage' and @href='https://github.com/']")
  //   private WebElement logoIcon;
 
     public LoginPage clickSignIn(){
         signInButton.click();
         return new LoginPage(driver);
+    }
+
+    public ContactSalesPage clickContactSalesLink(){
+        contactSalesLink.click();
+        return new ContactSalesPage(driver);
     }
 
     public SearchResultPage typeTextSearchField(String text){

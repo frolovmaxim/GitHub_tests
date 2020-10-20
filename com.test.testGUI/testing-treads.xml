@@ -12,9 +12,9 @@
             </run>
         </groups>-->
         <classes>
-            <class name="SearchResultPageTest" />
+            <!--<class name="SearchResultPageTest" />-->
             <!--<class name="LoginPageTest" />-->
-            <!--<class name="MainPageTest" />-->
+            <class name="MainPageTest" />
         </classes>
 
 </test>
@@ -26,9 +26,9 @@
         </run>
     </groups>-->
         <classes>
-            <class name="SearchResultPageTest" />
+            <!--<class name="SearchResultPageTest" />-->
             <!--<class name="LoginPageTest" />-->
-            <!--<class name="MainPageTest" />-->
+            <class name="MainPageTest" />
         </classes>
     </test>
 </suite>

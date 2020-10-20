@@ -96,12 +96,19 @@ public class MainPageTest {
         Assert.assertEquals(siteMapTitleText, "Site Map");
     }
 
-    @Test
+    @Test (enabled = false)
     public void searchResultTest(){
         gitHubSite.mainPage().typeTextSearchField("frolovmaxim");
         String searchResultPageTitle = gitHubSite.searchResultPage().getPageTitle();
         boolean result = searchResultPageTitle.equals("Search · frolovmaxim · GitHub") || searchResultPageTitle.equals("GitHub: Where the world builds software · GitHub");
         Assert.assertTrue(result);
+    }
+
+    @Test
+    public void contactSalesLinkTest(){
+        gitHubSite.mainPage().clickContactSalesLink();
+        String contactSalesPageTitle = gitHubSite.contactSalesPage().getTitleContactSalesPage();
+        Assert.assertEquals(contactSalesPageTitle, "Contact us - GitHub Enterprise");
     }
 
     @AfterMethod (groups = {"firstGroup", "testSignUp"})

@@ -62,4 +62,8 @@ public class GitHubSite {
     public AdvancedSearchPage advancedSearchPage(){
         return new AdvancedSearchPage(driver);
     }
+
+    public ContactSalesPage contactSalesPage(){
+        return new ContactSalesPage(driver);
+    }
 }

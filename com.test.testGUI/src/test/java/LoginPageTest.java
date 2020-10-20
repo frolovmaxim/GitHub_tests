@@ -35,14 +35,6 @@ public class LoginPageTest {
         //JavascriptExecutor js = (JavascriptExecutor) driver;
         gitHubSite = new GitHubSite(driver);
 
-        //loginPage = PageFactory.initElements(driver, LoginPage.class);
-        //accountPage = PageFactory.initElements(driver, AccountPage.class);
-        //createAccountPage = PageFactory.initElements(driver, CreateAccountPage.class);
-        //resetYourPasswordPage = PageFactory.initElements(driver, ResetYourPasswordPage.class);
-        //termsOfServicePage = PageFactory.initElements(driver, TermsOfServicePage.class);
-        //privacyStatementPage = PageFactory.initElements(driver, PrivacyStatementPage.class);
-        //securityPage = PageFactory.initElements(driver, SecurityPage.class);
-        //contactPage = PageFactory.initElements(driver, ContactPage.class);
     }
 
     @Test (groups = {"firstGroup"})

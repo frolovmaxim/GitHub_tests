@@ -1,23 +1,16 @@
 
-import java.io.IOException;
-import java.text.ParseException;
-
-
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
-
-import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpMethod;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
+import org.springframework.http.*;
 import org.springframework.web.client.RestTemplate;
-
 import org.testng.Assert;
 import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 import org.testng.log4testng.Logger;
+
+import java.io.IOException;
+import java.text.ParseException;
 
 @SuppressWarnings("ALL")
 public class TestCRUD {
@@ -165,8 +158,8 @@ public class TestCRUD {
             String getURI = "http://dummy.restapiexample.com/api/v1/employee/" + employeeId;
             logger.info("Get URL :" + getURI);
 
-            HttpHeaders headers = new HttpHeaders();
-            HttpEntity<String> entity = new HttpEntity<String>(headers);
+            //HttpHeaders headers = new HttpHeaders();
+            //HttpEntity<String> entity = new HttpEntity<String>(headers);
 
             //GET Method to Get existing Employee
             response = restTemplate.getForEntity(getURI,String.class);
