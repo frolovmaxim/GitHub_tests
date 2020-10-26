@@ -66,4 +66,8 @@ public class GitHubSite {
     public ContactSalesPage contactSalesPage(){
         return new ContactSalesPage(driver);
     }
+
+    public CustomerStoryPage customerStoryPage(){
+        return new CustomerStoryPage(driver);
+    }
 }

@@ -68,6 +68,9 @@ public class MainPage {
     @FindBy(xpath = "//a[text() = 'Contact Sales ']")
     private WebElement contactSalesLink;
 
+    @FindBy(xpath = "//a[@href='/customer-stories/kris-nova']")
+    private WebElement storyKrisNova;
+
  //   @FindBy(xpath = "//a[@aria-label= 'Homepage' and @href='https://github.com/']")
  //   private WebElement logoIcon;
 
@@ -92,6 +95,11 @@ public class MainPage {
     public SiteMapPage clickSiteMap(){
         siteMapLink.click();
         return new SiteMapPage(driver);
+    }
+
+    public CustomerStoryPage clickKrisNovaStory(){
+        storyKrisNova.click();
+        return new CustomerStoryPage(driver);
     }
 
     public SignUpPage clickSignUp(){

@@ -104,11 +104,18 @@ public class MainPageTest {
         Assert.assertTrue(result);
     }
 
-    @Test
+    @Test (enabled = false)
     public void contactSalesLinkTest(){
         gitHubSite.mainPage().clickContactSalesLink();
         String contactSalesPageTitle = gitHubSite.contactSalesPage().getTitleContactSalesPage();
         Assert.assertEquals(contactSalesPageTitle, "Contact us - GitHub Enterprise");
+    }
+
+    @Test
+    public void testKrisNovaStory(){
+        gitHubSite.mainPage().clickKrisNovaStory();
+        String storykrisNovaUrl = gitHubSite.customerStoryPage().getKrisNovaStoryUrl();
+        Assert.assertEquals(storykrisNovaUrl, "https://github.com/customer-stories/kris-nova");
     }
 
     @AfterMethod (groups = {"firstGroup", "testSignUp"})
