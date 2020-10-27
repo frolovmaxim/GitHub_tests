@@ -111,11 +111,17 @@ public class MainPageTest {
         Assert.assertEquals(contactSalesPageTitle, "Contact us - GitHub Enterprise");
     }
 
-    @Test
+    @Test (enabled = false)
     public void testKrisNovaStory(){
         gitHubSite.mainPage().clickKrisNovaStory();
-        String storykrisNovaUrl = gitHubSite.customerStoryPage().getKrisNovaStoryUrl();
-        Assert.assertEquals(storykrisNovaUrl, "https://github.com/customer-stories/kris-nova");
+        String storyKrisNovaUrl = gitHubSite.customerStoryPage().getKrisNovaStoryUrl();
+        Assert.assertEquals(storyKrisNovaUrl, "https://github.com/customer-stories/kris-nova");
+    }
+
+    @Test
+    public void testJumbotronColor(){
+        String jumbotronColor = gitHubSite.mainPage().getJumbotronColor();
+        Assert.assertTrue(jumbotronColor.equals("rgba(43, 49, 55, 1)") || jumbotronColor.equals("rgb(43, 49, 55)"));
     }
 
     @AfterMethod (groups = {"firstGroup", "testSignUp"})

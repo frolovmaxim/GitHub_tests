@@ -71,6 +71,9 @@ public class MainPage {
     @FindBy(xpath = "//a[@href='/customer-stories/kris-nova']")
     private WebElement storyKrisNova;
 
+    @FindBy(xpath = "//div[contains(@class,'jumbotron-codelines')]")
+    private WebElement jumbotronMain;
+
  //   @FindBy(xpath = "//a[@aria-label= 'Homepage' and @href='https://github.com/']")
  //   private WebElement logoIcon;
 
@@ -177,5 +180,9 @@ public class MainPage {
         whyGitHubDropDownMenu.click();
         actionsLink.click();
         return new ActionsPage(driver);
+    }
+
+    public String getJumbotronColor(){
+        return jumbotronMain.getCssValue("background-color");
     }
 }
