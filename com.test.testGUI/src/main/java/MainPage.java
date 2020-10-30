@@ -74,12 +74,23 @@ public class MainPage {
     @FindBy(xpath = "//div[contains(@class,'jumbotron-codelines')]")
     private WebElement jumbotronMain;
 
+    @FindBy(xpath = "//img[@alt = 'Slack']")
+    private WebElement slackIcon;
+
+    @FindBy(xpath = "//a[@class='no-underline Bump-link']")
+    private WebElement browseGitHubMarketplaceLink;
+
  //   @FindBy(xpath = "//a[@aria-label= 'Homepage' and @href='https://github.com/']")
  //   private WebElement logoIcon;
 
     public LoginPage clickSignIn(){
         signInButton.click();
         return new LoginPage(driver);
+    }
+
+    public MainPage clickSlackIcon(){
+        slackIcon.click();
+        return this;
     }
 
     public ContactSalesPage clickContactSalesLink(){
@@ -185,4 +196,15 @@ public class MainPage {
     public String getJumbotronColor(){
         return jumbotronMain.getCssValue("background-color");
     }
+
+    public String getBrowseGitHubMarketplaceLinkColor(){
+        return browseGitHubMarketplaceLink.getCssValue("color");
+    }
+
+    public MarketplacePage clickBrowseMarketplaceLink(){
+        browseGitHubMarketplaceLink.click();
+        return new MarketplacePage(driver);
+    }
+
+
 }

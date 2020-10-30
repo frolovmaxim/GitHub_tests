@@ -70,4 +70,8 @@ public class GitHubSite {
     public CustomerStoryPage customerStoryPage(){
         return new CustomerStoryPage(driver);
     }
+
+    public MarketplacePage marketplacePage(){
+        return new MarketplacePage(driver);
+    }
 }

@@ -118,10 +118,20 @@ public class MainPageTest {
         Assert.assertEquals(storyKrisNovaUrl, "https://github.com/customer-stories/kris-nova");
     }
 
-    @Test
+    @Test (enabled = false)
     public void testJumbotronColor(){
         String jumbotronColor = gitHubSite.mainPage().getJumbotronColor();
         Assert.assertTrue(jumbotronColor.equals("rgba(43, 49, 55, 1)") || jumbotronColor.equals("rgb(43, 49, 55)"));
+    }
+
+    @Test
+    public void testBrowseMarketplaceLink(){
+        String getColorLinkText = gitHubSite.mainPage().getBrowseGitHubMarketplaceLinkColor();
+        System.out.println(getColorLinkText);
+        Assert.assertTrue(getColorLinkText.equals("rgb(3, 102, 214)") || getColorLinkText.equals("rgba(3, 102, 214, 1)"));
+        gitHubSite.mainPage().clickBrowseMarketplaceLink();
+        String marketplaceLinkTitle = gitHubSite.marketplacePage().getMarketplaceTitle();
+        Assert.assertEquals(marketplaceLinkTitle, "Marketplace · Tools to improve your workflow · GitHub");
     }
 
     @AfterMethod (groups = {"firstGroup", "testSignUp"})

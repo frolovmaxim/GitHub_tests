@@ -30,7 +30,7 @@ public class TestReqRes {
         headers.add("Content-Type", "application/json");
     }
 
-    @Test //(enabled = false)
+    @Test (enabled = false)
     public void getUser(){
 
         String fooResourceUrl = "https://reqres.in/api/users/2";
@@ -42,13 +42,9 @@ public class TestReqRes {
 
     }
 
-    @Test //(enabled = false)
+    @Test (enabled = false)
     public void postUser(){
         String addURI = "https://reqres.in/api/users";
-        //HttpHeaders headers = new HttpHeaders();
-        //headers.add("Accept", "application/json");
-        //headers.add("Content-Type", "application/json");
-
         String jsonBody = "{\"name\":\"Maxim\",\"job\":\"QA\"}";
         System.out.println("\n\n" + jsonBody);
         HttpEntity<String> entity = new HttpEntity<String>(jsonBody, headers);
@@ -58,31 +54,39 @@ public class TestReqRes {
         Assert.assertEquals(response.getStatusCode(), HttpStatus.CREATED);
     }
 
-    @Test //(enabled = false)
+    @Test (enabled = false)
     public void deleteUser(){
         String resourceToDelete = "https://reqres.in/api/users/2";
-        //HttpHeaders headers = new HttpHeaders();
-        //headers.add("Accept", "application/json");
-        //headers.add("Content-Type", "application/json");
         HttpEntity<String> entity = new HttpEntity<String>(headers);
         response = restTemplate.exchange(resourceToDelete, HttpMethod.DELETE, entity, String.class);
-        //restTemplate.delete(resourceToDelete);
-        //response = restTemplate.getForEntity(resourceToDelete, String.class);
         Assert.assertEquals(response.getStatusCode(), HttpStatus.NO_CONTENT);
 
     }
 
-    @Test
+    @Test (enabled = false)
     public void putUser(){
         String resourceToUpdate = "https://reqres.in/api/users/2";
-        //HttpHeaders headers = new HttpHeaders();
-        //headers.add("Accept", "application/json");
-        //headers.add("Content-Type", "application/json");
         String jsonBody = "{\"name\":\"Maxim\",\"job\":\"QA\"}";
         HttpEntity<String> entity = new HttpEntity<String>(jsonBody,headers);
         response = restTemplate.exchange(resourceToUpdate, HttpMethod.PUT, entity, String.class);
         System.out.println(response.getBody());
         Assert.assertEquals(response.getStatusCode(), HttpStatus.OK);
+    }
+
+    @Test
+    public void testJsonValue() throws org.json.simple.parser.ParseException {
+        String fooResourceUrl = "https://reqres.in/api/users/2";
+        response = restTemplate.getForEntity(fooResourceUrl, String.class);
+        responseBody = response.getBody();
+        ReqRes source = new ReqRes();
+        String lastName = source.getEmpIdFromResponse(responseBody);
+        System.out.println(lastName);
+        Assert.assertEquals(lastName, "Weaver");
+
+
+        //HashMap<String, Map> answer = restTemplate.getForObject(fooResourceUrl, new HashMap<>().getClass());
+        //answer.values().forEach(a -> System.out.println(a.toString()));
+        //Assert.assertEquals(response.getStatusCode(), HttpStatus.OK);
     }
 
 
