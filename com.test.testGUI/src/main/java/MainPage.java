@@ -80,12 +80,20 @@ public class MainPage {
     @FindBy(xpath = "//a[@class='no-underline Bump-link']")
     private WebElement browseGitHubMarketplaceLink;
 
+    @FindBy(xpath = "//h3[text() = 'Manage your chaos']")
+    private WebElement manageYourChaosLink;
+
  //   @FindBy(xpath = "//a[@aria-label= 'Homepage' and @href='https://github.com/']")
  //   private WebElement logoIcon;
 
     public LoginPage clickSignIn(){
         signInButton.click();
         return new LoginPage(driver);
+    }
+
+    public ProjectManagmentPage clickManageYourChaosLink(){
+        manageYourChaosLink.click();
+        return new ProjectManagmentPage(driver);
     }
 
     public MainPage clickSlackIcon(){
@@ -205,6 +213,12 @@ public class MainPage {
         browseGitHubMarketplaceLink.click();
         return new MarketplacePage(driver);
     }
+
+    public String getBorderRadius(){
+        return manageYourChaosLink.getCssValue("border-radius");
+    }
+
+
 
 
 }

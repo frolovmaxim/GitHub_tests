@@ -74,4 +74,8 @@ public class GitHubSite {
     public MarketplacePage marketplacePage(){
         return new MarketplacePage(driver);
     }
+
+    public ProjectManagmentPage projectManagmentPage(){
+        return new ProjectManagmentPage(driver);
+    }
 }

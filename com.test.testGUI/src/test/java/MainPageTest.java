@@ -1,3 +1,4 @@
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
@@ -124,7 +125,7 @@ public class MainPageTest {
         Assert.assertTrue(jumbotronColor.equals("rgba(43, 49, 55, 1)") || jumbotronColor.equals("rgb(43, 49, 55)"));
     }
 
-    @Test
+    @Test (enabled = false)
     public void testBrowseMarketplaceLink(){
         String getColorLinkText = gitHubSite.mainPage().getBrowseGitHubMarketplaceLinkColor();
         System.out.println(getColorLinkText);
@@ -132,6 +133,17 @@ public class MainPageTest {
         gitHubSite.mainPage().clickBrowseMarketplaceLink();
         String marketplaceLinkTitle = gitHubSite.marketplacePage().getMarketplaceTitle();
         Assert.assertEquals(marketplaceLinkTitle, "Marketplace · Tools to improve your workflow · GitHub");
+    }
+
+    @Test
+    public void testManageYourChaosLink(){
+
+        //JavascriptExecutor js = (JavascriptExecutor) driver;
+        //js.executeScript("window.scrollBy(0,document.body.scrollHeight/2)");
+
+        gitHubSite.mainPage().clickManageYourChaosLink();
+        String manageProjectPageTitle = gitHubSite.projectManagmentPage().getProjectManagmentTitle();
+        Assert.assertEquals(manageProjectPageTitle, "Features · Project management · GitHub");
     }
 
     @AfterMethod (groups = {"firstGroup", "testSignUp"})
