@@ -18,6 +18,7 @@ public class TestReqRes {
     private ResponseEntity<String> response;
     private String responseBody;
     private HttpHeaders headers;
+    private String fakePosts;
 
     @BeforeTest
     public void beforeTest() throws IOException, ParseException {
@@ -28,6 +29,8 @@ public class TestReqRes {
         headers = new HttpHeaders();
         headers.add("Accept", "application/json");
         headers.add("Content-Type", "application/json");
+        fakePosts = "https://jsonplaceholder.typicode.com/posts";
+
     }
 
     @Test (enabled = false)
@@ -73,7 +76,7 @@ public class TestReqRes {
         Assert.assertEquals(response.getStatusCode(), HttpStatus.OK);
     }
 
-    @Test
+    @Test (enabled = false)
     public void testJsonValue() throws org.json.simple.parser.ParseException {
         String fooResourceUrl = "https://reqres.in/api/users/2";
         response = restTemplate.getForEntity(fooResourceUrl, String.class);
@@ -88,6 +91,28 @@ public class TestReqRes {
         //answer.values().forEach(a -> System.out.println(a.toString()));
         //Assert.assertEquals(response.getStatusCode(), HttpStatus.OK);
     }
+    //Linked CRUD tests
+    @Test
+    public void createPost (){
+        String jsonBody = "{\"userId\": 666,\"id\": 101, \"title\": \"evil\", \"body\": \"Don't touch my wife\" }";
+        System.out.println("\n\n" + jsonBody);
+        HttpEntity<String> entity = new HttpEntity<String>(jsonBody, headers);
+        response = restTemplate.postForEntity(fakePosts, entity, String.class);
+        responseBody = response.getBody();
+        System.out.println(responseBody);
+        Assert.assertEquals(response.getStatusCode(), HttpStatus.CREATED);
+    }
+
+    @Test
+    public void getPosts(){
+        int id = 100;
+        response = restTemplate.getForEntity(fakePosts + '/' + id, String.class);
+        responseBody = response.getBody();
+        System.out.println(responseBody);
+        Assert.assertEquals(response.getStatusCode(), HttpStatus.OK);
+    }
+
+
 
 
     @AfterTest
