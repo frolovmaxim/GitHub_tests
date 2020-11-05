@@ -19,6 +19,7 @@ public class TestReqRes {
     private String responseBody;
     private HttpHeaders headers;
     private String fakePosts;
+    ReqRes main;
 
     @BeforeTest
     public void beforeTest() throws IOException, ParseException {
@@ -29,6 +30,7 @@ public class TestReqRes {
         headers = new HttpHeaders();
         headers.add("Accept", "application/json");
         headers.add("Content-Type", "application/json");
+        main = new ReqRes();
         fakePosts = "https://jsonplaceholder.typicode.com/posts";
 
     }
@@ -96,21 +98,22 @@ public class TestReqRes {
     public void createPost (){
         String jsonBody = "{\"userId\": 666,\"id\": 101, \"title\": \"evil\", \"body\": \"Don't touch my wife\" }";
         System.out.println("\n\n" + jsonBody);
-        HttpEntity<String> entity = new HttpEntity<String>(jsonBody, headers);
-        response = restTemplate.postForEntity(fakePosts, entity, String.class);
-        responseBody = response.getBody();
-        System.out.println(responseBody);
-        Assert.assertEquals(response.getStatusCode(), HttpStatus.CREATED);
+        main.createPost(fakePosts, jsonBody);
     }
 
     @Test
-    public void getPosts(){
-        int id = 100;
-        response = restTemplate.getForEntity(fakePosts + '/' + id, String.class);
-        responseBody = response.getBody();
-        System.out.println(responseBody);
-        Assert.assertEquals(response.getStatusCode(), HttpStatus.OK);
+    public void getPost(){
+        main.getPost(fakePosts, 100);
     }
+
+    @Test
+    public void putPost(){
+        String jsonBody = "{\"userId\": 10,\"id\": 100, \"title\": \"evil\", \"body\": \"Don't touch my wife\" }";
+        System.out.println("\n\n" + jsonBody);
+        main.putPost(fakePosts, 100, jsonBody );
+    }
+
+
 
 
 
