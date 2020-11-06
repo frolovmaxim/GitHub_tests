@@ -3,6 +3,7 @@ import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
 import org.springframework.http.*;
 import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
 import org.springframework.web.client.RestTemplate;
@@ -26,21 +27,32 @@ public class ReqRes {
 
 
 
-    public String getEmpIdFromResponse(String json) throws org.json.simple.parser.ParseException {
+    public String getEmpIdFromResponse(String jsonString, String firstKey) throws ParseException {
+        JSONObject jsonObj;
+        JSONParser parser = new JSONParser();  // parser to parse string to JSONObject
+        jsonObj = (JSONObject) parser.parse(jsonString); // parse the Object using parse Method.
+        String desiredObject = (String) jsonObj.get(firstKey);
+        return desiredObject;
+    }
+
+    public String getEmpIdFromResponse(String json, String firstKey, String secondKey) {
         JSONParser parser = new JSONParser();
-        JSONObject jsonResponseObject = new JSONObject();
         Object obj = new Object();
         try {
             obj = parser.parse(json);
         } catch (org.json.simple.parser.ParseException e) {
             e.printStackTrace();
         }
-        jsonResponseObject = (JSONObject) obj;
+        JSONObject jsonResponseObject = (JSONObject) obj;
+        JSONObject data = (JSONObject) jsonResponseObject.get(firstKey);
+        String aimValue = data.get(secondKey).toString();
+        return aimValue;
+    }
 
-        JSONObject data = (JSONObject) jsonResponseObject.get("data");
-        String lastName = data.get("last_name").toString();
-
-        return lastName;
+    public String getResponseBody(String url, int id){
+        this.setUp();
+        response = restTemplate.getForEntity(url + '/' + id, String.class);
+        return response.getBody();
     }
 
     public void getPost(String url, int id){
@@ -65,6 +77,13 @@ public class ReqRes {
         HttpEntity<String> entity = new HttpEntity<String>(jsonBody,headers);
         response = restTemplate.exchange(url + '/' + id, HttpMethod.PUT, entity, String.class);
         System.out.println(response.getBody());
+        Assert.assertEquals(response.getStatusCode(), HttpStatus.OK);
+    }
+
+    public void deletePost(String url, int id){
+        this.setUp();
+        HttpEntity<String> entity = new HttpEntity<String>(headers);
+        response = restTemplate.exchange(url + '/' + id, HttpMethod.DELETE, entity, String.class);
         Assert.assertEquals(response.getStatusCode(), HttpStatus.OK);
     }
 

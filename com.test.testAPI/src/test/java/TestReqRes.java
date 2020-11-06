@@ -83,8 +83,7 @@ public class TestReqRes {
         String fooResourceUrl = "https://reqres.in/api/users/2";
         response = restTemplate.getForEntity(fooResourceUrl, String.class);
         responseBody = response.getBody();
-        ReqRes source = new ReqRes();
-        String lastName = source.getEmpIdFromResponse(responseBody);
+        String lastName = main.getEmpIdFromResponse(responseBody, "data", "last_name");
         System.out.println(lastName);
         Assert.assertEquals(lastName, "Weaver");
 
@@ -94,23 +93,39 @@ public class TestReqRes {
         //Assert.assertEquals(response.getStatusCode(), HttpStatus.OK);
     }
     //Linked CRUD tests
-    @Test
+    @Test (enabled = false)
     public void createPost (){
         String jsonBody = "{\"userId\": 666,\"id\": 101, \"title\": \"evil\", \"body\": \"Don't touch my wife\" }";
         System.out.println("\n\n" + jsonBody);
         main.createPost(fakePosts, jsonBody);
     }
 
-    @Test
+    @Test (enabled = false)
     public void getPost(){
         main.getPost(fakePosts, 100);
+
     }
 
-    @Test
+    @Test (enabled = false)
     public void putPost(){
         String jsonBody = "{\"userId\": 10,\"id\": 100, \"title\": \"evil\", \"body\": \"Don't touch my wife\" }";
         System.out.println("\n\n" + jsonBody);
         main.putPost(fakePosts, 100, jsonBody );
+    }
+
+    @Test (enabled = false)
+    public void deletePost(){
+       main.deletePost(fakePosts, 999);
+    }
+
+    @Test
+    public void checkValueFormGetResponse() throws org.json.simple.parser.ParseException {
+        main.getPost(fakePosts, 6);
+        //String titleOfId6 = main.getEmpIdFromResponse(responseBody, "title");
+        String responseBody = main.getResponseBody(fakePosts, 6);
+        String titleOfId6 = main.getEmpIdFromResponse(responseBody, "title");
+        System.out.println(titleOfId6);
+        Assert.assertEquals(titleOfId6, "dolorem eum magni eos aperiam quia");
     }
 
 
