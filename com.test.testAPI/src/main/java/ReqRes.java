@@ -27,26 +27,34 @@ public class ReqRes {
 
 
 
-    public String getEmpIdFromResponse(String jsonString, String firstKey) throws ParseException {
-        JSONObject jsonObj;
+    public String getEmpIdFromResponse(String jsonString, String firstKey) {
+        JSONObject jsonObj = new JSONObject();
         JSONParser parser = new JSONParser();  // parser to parse string to JSONObject
-        jsonObj = (JSONObject) parser.parse(jsonString); // parse the Object using parse Method.
+        try {
+            jsonObj = (JSONObject) parser.parse(jsonString); // parse the Object using parse Method.
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
         String desiredObject = (String) jsonObj.get(firstKey);
         return desiredObject;
     }
 
-    public String getEmpIdFromResponse(String json, String firstKey, String secondKey) {
+    public String getEmpIdFromResponse(String jsonString, String firstKey, String secondKey) {
+        JSONObject jsonObj = new JSONObject();
         JSONParser parser = new JSONParser();
-        Object obj = new Object();
         try {
-            obj = parser.parse(json);
+            jsonObj = (JSONObject) parser.parse(jsonString);
         } catch (org.json.simple.parser.ParseException e) {
             e.printStackTrace();
         }
-        JSONObject jsonResponseObject = (JSONObject) obj;
-        JSONObject data = (JSONObject) jsonResponseObject.get(firstKey);
-        String aimValue = data.get(secondKey).toString();
-        return aimValue;
+        String desiredObject = jsonObj.get(firstKey).toString();
+        try {
+            jsonObj = (JSONObject) parser.parse(desiredObject);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        desiredObject = jsonObj.get(secondKey).toString();
+        return desiredObject;
     }
 
     public String getResponseBody(String url, int id){
@@ -84,7 +92,7 @@ public class ReqRes {
         this.setUp();
         HttpEntity<String> entity = new HttpEntity<String>(headers);
         response = restTemplate.exchange(url + '/' + id, HttpMethod.DELETE, entity, String.class);
-        Assert.assertEquals(response.getStatusCode(), HttpStatus.OK);
+        Assert.assertTrue(response.getStatusCode().equals(HttpStatus.OK) || response.getStatusCode().equals(HttpStatus.NO_CONTENT));
     }
 
 }
