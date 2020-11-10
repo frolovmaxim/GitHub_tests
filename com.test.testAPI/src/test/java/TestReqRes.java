@@ -1,5 +1,3 @@
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.RestTemplate;
 import org.testng.Assert;
 import org.testng.annotations.AfterTest;
@@ -9,9 +7,7 @@ import org.testng.annotations.Test;
 
 public class TestReqRes {
     private RestTemplate restTemplate;
-    private ResponseEntity<String> response;
     private String responseBody;
-    private HttpHeaders headers;
     private String fakePosts;
     private String reqResUrl;
     ReqRes main;
@@ -23,31 +19,34 @@ public class TestReqRes {
         reqResUrl = "https://reqres.in/api/users";
     }
 
-    @Test
+    //reqres.in
+
+    @Test (enabled = false)
     public void getUser(){
         main.getPost(reqResUrl, 2);
         responseBody = main.getResponseBody(reqResUrl, 2);
         Assert.assertTrue(responseBody.contains("Janet"));
     }
 
-    @Test
+    @Test (enabled = false)
     public void postUser(){
         String jsonBody = "{\"name\":\"Maxim\",\"job\":\"QA\"}";
         main.createPost(reqResUrl, jsonBody);
     }
 
-    @Test
+    @Test (enabled = false)
     public void deleteUser(){
         main.deletePost(reqResUrl,2);
     }
 
-    @Test
-    public void putUser(){
-        String jsonBody = "{\"name\":\"Maxim\",\"job\":\"QA\"}";
+
+    @Test(dataProvider = "users", dataProviderClass = DataProviderClass.class)
+    public void putUser(String data){
+        String jsonBody = data;
         main.putPost(reqResUrl, 2, jsonBody);
     }
 
-    @Test
+    @Test (enabled = false)
     public void testJsonValue() {
         main.getPost(reqResUrl, 2);
         responseBody = main.getResponseBody(reqResUrl, 2);
@@ -55,32 +54,32 @@ public class TestReqRes {
         System.out.println(lastName);
         Assert.assertEquals(lastName, "Weaver");
     }
-    //Linked CRUD tests
-    @Test
+
+    //jsonplaceholder.typicode.com
+
+    @Test (enabled = false)
     public void createPost (){
         String jsonBody = "{\"userId\": 666,\"id\": 101, \"title\": \"evil\", \"body\": \"Don't touch my wife\" }";
-        System.out.println("\n\n" + jsonBody);
         main.createPost(fakePosts, jsonBody);
     }
 
-    @Test
+    @Test (enabled = false)
     public void getPost(){
         main.getPost(fakePosts, 100);
     }
 
-    @Test
+    @Test (enabled = false)
     public void putPost(){
         String jsonBody = "{\"userId\": 10,\"id\": 100, \"title\": \"evil\", \"body\": \"Don't touch my wife\" }";
-        System.out.println("\n\n" + jsonBody);
         main.putPost(fakePosts, 100, jsonBody );
     }
 
-    @Test
+    @Test (enabled = false)
     public void deletePost(){
        main.deletePost(fakePosts, 999);
     }
 
-    @Test
+    @Test (enabled = false)
     public void checkValueFormGetResponse() {
         main.getPost(fakePosts, 6);
         String responseBody = main.getResponseBody(fakePosts, 6);

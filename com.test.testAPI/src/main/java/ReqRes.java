@@ -25,8 +25,6 @@ public class ReqRes {
         headers.add("Content-Type", "application/json");
     }
 
-
-
     public String getEmpIdFromResponse(String jsonString, String firstKey) {
         JSONObject jsonObj = new JSONObject();
         JSONParser parser = new JSONParser();  // parser to parse string to JSONObject
