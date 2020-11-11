@@ -40,7 +40,7 @@ public class TestReqRes {
     }
 
 
-    @Test(dataProvider = "users", dataProviderClass = DataProviderClass.class)
+    @Test(dataProvider = "users", dataProviderClass = DataProviderClass.class, enabled = false)
     public void putUser(String data){
         String jsonBody = data;
         main.putPost(reqResUrl, 2, jsonBody);
@@ -57,9 +57,9 @@ public class TestReqRes {
 
     //jsonplaceholder.typicode.com
 
-    @Test (enabled = false)
-    public void createPost (){
-        String jsonBody = "{\"userId\": 666,\"id\": 101, \"title\": \"evil\", \"body\": \"Don't touch my wife\" }";
+    @Test (dataProvider = "usersPost", dataProviderClass = DataProviderClass.class)
+    public void createPost (String data){
+        String jsonBody = data;
         main.createPost(fakePosts, jsonBody);
     }
 
