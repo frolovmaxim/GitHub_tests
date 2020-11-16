@@ -1,8 +1,10 @@
+import org.testng.Assert;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 import java.sql.*;
 
+import static org.testng.Assert.*;
 
 
 public class DBTesting {
@@ -29,8 +31,82 @@ public class DBTesting {
             ex.printStackTrace();
         }
     }
-    @Test
+    @Test (enabled = false)
     public void getEmployeesFromDataBase() {
+        try {
+            String query = "select * from persons";
+            statement = connection.createStatement();
+            rs = statement.executeQuery(query);
+            while(rs.next()){
+                int perId= rs.getInt("id");
+                String perName= rs.getString("Name");
+                int perAge= rs.getInt("Age");
+                System.out.println(perId + " | " + perName + " | " + perAge);
+                Assert.assertTrue(perAge <= 38);
+            }
+
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+    }
+
+    @Test (enabled = false)
+    public void getSpecificEmployee(){
+        String perName = null;
+        try {
+            String query = "select * from Employees.persons where id = 6";
+            statement = connection.createStatement();
+            rs = statement.executeQuery(query);
+            while(rs.next()){
+                int perId= rs.getInt("id");
+                perName= rs.getString("Name");
+                int perAge= rs.getInt("Age");
+                System.out.println(perId + " | " + perName + " | " + perAge);
+            }
+            System.out.println(perName);
+            Assert.assertEquals(perName, "John");
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+
+    }
+
+    @Test
+    public void insertRecordEmployee(){
+        try {
+            String query = "insert into Employees.persons values(8,'Newman', 39)";
+            statement = connection.createStatement();
+            statement.executeUpdate(query);
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        try {
+            String query = "select * from persons";
+            statement = connection.createStatement();
+            rs = statement.executeQuery(query);
+            while(rs.next()){
+                int perId= rs.getInt("id");
+                String perName= rs.getString("Name");
+                int perAge= rs.getInt("Age");
+                System.out.println(perId + " | " + perName + " | " + perAge);
+            }
+
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+    }
+
+
+
+    @Test (dependsOnMethods = "insertRecordEmployee")
+    public void updateRecordEmployee(){
+        try {
+            String query = "update Employees.persons set name = 'Superman' where id = 8";
+            statement = connection.createStatement();
+            statement.executeUpdate(query);
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
         try {
             String query = "select * from persons";
             statement = connection.createStatement();
@@ -45,6 +121,31 @@ public class DBTesting {
             ex.printStackTrace();
         }
     }
+
+    @Test (dependsOnMethods = "updateRecordEmployee")
+    public void deleteRecordEmployee(){
+        try {
+            String query = "delete from Employees.persons where id = 8";
+            statement = connection.createStatement();
+            statement.executeUpdate(query);
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        try {
+            String query = "select * from persons";
+            statement = connection.createStatement();
+            rs = statement.executeQuery(query);
+            while(rs.next()){
+                int perId= rs.getInt("id");
+                String perName= rs.getString("Name");
+                int perAge= rs.getInt("Age");
+                System.out.println(perId + " | " + perName + " | " + perAge);
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+    }
+
     @AfterClass
     public void tearDown() {
         if (connection != null) {
