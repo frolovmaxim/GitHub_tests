@@ -11,9 +11,12 @@ public class DBTesting {
     private Connection connection;
     private static Statement statement;
     private static ResultSet rs;
+    DBmain main;
     @BeforeClass
     public void setUp() {
-        String databaseURL = "jdbc:mysql://localhost:3306/Employees";
+        main = new DBmain();
+        main.setUp();
+/*        String databaseURL = "jdbc:mysql://localhost:3306/Employees";
         String user = "root";
         String password = "Password";
         connection = null;
@@ -29,11 +32,13 @@ public class DBTesting {
         }
         catch (ClassNotFoundException ex) {
             ex.printStackTrace();
-        }
+        }*/
     }
-    @Test (enabled = false)
+    @Test //(enabled = false)
     public void getEmployeesFromDataBase() {
-        try {
+        main.checkTable();
+
+/*        try {
             String query = "select * from persons";
             statement = connection.createStatement();
             rs = statement.executeQuery(query);
@@ -47,15 +52,15 @@ public class DBTesting {
 
         } catch (SQLException ex) {
             ex.printStackTrace();
-        }
+        }*/
     }
 
-    @Test (enabled = false)
+    @Test //(enabled = false)
     public void getSpecificEmployee(){
         String perName = null;
         try {
             String query = "select * from Employees.persons where id = 6";
-            statement = connection.createStatement();
+            statement = main.setUp().createStatement();
             rs = statement.executeQuery(query);
             while(rs.next()){
                 int perId= rs.getInt("id");
@@ -71,16 +76,18 @@ public class DBTesting {
 
     }
 
-    @Test
+    @Test //(enabled = false)
     public void insertRecordEmployee(){
         try {
             String query = "insert into Employees.persons values(8,'Newman', 39)";
-            statement = connection.createStatement();
+            statement = main.setUp().createStatement();
             statement.executeUpdate(query);
         } catch (SQLException ex) {
             ex.printStackTrace();
         }
-        try {
+
+        main.checkTable();
+/*        try {
             String query = "select * from persons";
             statement = connection.createStatement();
             rs = statement.executeQuery(query);
@@ -93,7 +100,7 @@ public class DBTesting {
 
         } catch (SQLException ex) {
             ex.printStackTrace();
-        }
+        }*/
     }
 
 
@@ -102,12 +109,14 @@ public class DBTesting {
     public void updateRecordEmployee(){
         try {
             String query = "update Employees.persons set name = 'Superman' where id = 8";
-            statement = connection.createStatement();
+            statement = main.setUp().createStatement();
             statement.executeUpdate(query);
         } catch (SQLException ex) {
             ex.printStackTrace();
         }
-        try {
+
+        main.checkTable();
+/*        try {
             String query = "select * from persons";
             statement = connection.createStatement();
             rs = statement.executeQuery(query);
@@ -119,19 +128,21 @@ public class DBTesting {
             }
         } catch (SQLException ex) {
             ex.printStackTrace();
-        }
+        }*/
     }
 
     @Test (dependsOnMethods = "updateRecordEmployee")
     public void deleteRecordEmployee(){
         try {
             String query = "delete from Employees.persons where id = 8";
-            statement = connection.createStatement();
+            statement = main.setUp().createStatement();
             statement.executeUpdate(query);
         } catch (SQLException ex) {
             ex.printStackTrace();
         }
-        try {
+
+        main.checkTable();
+/*        try {
             String query = "select * from persons";
             statement = connection.createStatement();
             rs = statement.executeQuery(query);
@@ -143,7 +154,7 @@ public class DBTesting {
             }
         } catch (SQLException ex) {
             ex.printStackTrace();
-        }
+        }*/
     }
 
     @AfterClass
