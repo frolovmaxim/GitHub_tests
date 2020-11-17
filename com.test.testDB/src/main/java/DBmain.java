@@ -28,10 +28,9 @@ public class DBmain {
         return connection;
     }
 
-    public void checkTable(){
+    public void checkTable(String query){
         this.setUp();
         try {
-            String query = "select * from persons";
             statement = connection.createStatement();
             rs = statement.executeQuery(query);
             while(rs.next()){
@@ -44,8 +43,21 @@ public class DBmain {
         } catch (SQLException ex) {
             ex.printStackTrace();
         }
-
     }
-
-
+    
+    public String getName(String query){
+        String perName = null;
+        this.setUp();
+        try {
+            statement = connection.createStatement();
+            rs = statement.executeQuery(query);
+            while(rs.next()){
+                perName= rs.getString("Name");
+                System.out.println(perName);
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        return perName;
+    }
 }

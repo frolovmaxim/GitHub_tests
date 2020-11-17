@@ -16,64 +16,17 @@ public class DBTesting {
     public void setUp() {
         main = new DBmain();
         main.setUp();
-/*        String databaseURL = "jdbc:mysql://localhost:3306/Employees";
-        String user = "root";
-        String password = "Password";
-        connection = null;
-        try {
-            Class.forName("com.mysql.cj.jdbc.Driver");
-            System.out.println("Connecting to Database...");
-            connection = DriverManager.getConnection(databaseURL, user, password);
-            if (connection != null) {
-                System.out.println("Connected to the Database...");
-            }
-        } catch (SQLException ex) {
-            ex.printStackTrace();
-        }
-        catch (ClassNotFoundException ex) {
-            ex.printStackTrace();
-        }*/
     }
     @Test //(enabled = false)
     public void getEmployeesFromDataBase() {
-        main.checkTable();
-
-/*        try {
-            String query = "select * from persons";
-            statement = connection.createStatement();
-            rs = statement.executeQuery(query);
-            while(rs.next()){
-                int perId= rs.getInt("id");
-                String perName= rs.getString("Name");
-                int perAge= rs.getInt("Age");
-                System.out.println(perId + " | " + perName + " | " + perAge);
-                Assert.assertTrue(perAge <= 38);
-            }
-
-        } catch (SQLException ex) {
-            ex.printStackTrace();
-        }*/
+        main.checkTable("select * from persons");
     }
 
     @Test //(enabled = false)
     public void getSpecificEmployee(){
         String perName = null;
-        try {
-            String query = "select * from Employees.persons where id = 6";
-            statement = main.setUp().createStatement();
-            rs = statement.executeQuery(query);
-            while(rs.next()){
-                int perId= rs.getInt("id");
-                perName= rs.getString("Name");
-                int perAge= rs.getInt("Age");
-                System.out.println(perId + " | " + perName + " | " + perAge);
-            }
-            System.out.println(perName);
-            Assert.assertEquals(perName, "John");
-        } catch (SQLException ex) {
-            ex.printStackTrace();
-        }
-
+        String actual = main.getName("select name from Employees.persons where id = 6");
+        Assert.assertEquals(actual, "John");
     }
 
     @Test //(enabled = false)
@@ -85,22 +38,8 @@ public class DBTesting {
         } catch (SQLException ex) {
             ex.printStackTrace();
         }
-
-        main.checkTable();
-/*        try {
-            String query = "select * from persons";
-            statement = connection.createStatement();
-            rs = statement.executeQuery(query);
-            while(rs.next()){
-                int perId= rs.getInt("id");
-                String perName= rs.getString("Name");
-                int perAge= rs.getInt("Age");
-                System.out.println(perId + " | " + perName + " | " + perAge);
-            }
-
-        } catch (SQLException ex) {
-            ex.printStackTrace();
-        }*/
+        main.checkTable("select * from persons");
+        Assert.assertEquals(main.getName("select name from persons where id = 8"), "Newman");
     }
 
 
@@ -115,20 +54,7 @@ public class DBTesting {
             ex.printStackTrace();
         }
 
-        main.checkTable();
-/*        try {
-            String query = "select * from persons";
-            statement = connection.createStatement();
-            rs = statement.executeQuery(query);
-            while(rs.next()){
-                int perId= rs.getInt("id");
-                String perName= rs.getString("Name");
-                int perAge= rs.getInt("Age");
-                System.out.println(perId + " | " + perName + " | " + perAge);
-            }
-        } catch (SQLException ex) {
-            ex.printStackTrace();
-        }*/
+        main.checkTable("select * from persons");
     }
 
     @Test (dependsOnMethods = "updateRecordEmployee")
@@ -140,21 +66,8 @@ public class DBTesting {
         } catch (SQLException ex) {
             ex.printStackTrace();
         }
-
-        main.checkTable();
-/*        try {
-            String query = "select * from persons";
-            statement = connection.createStatement();
-            rs = statement.executeQuery(query);
-            while(rs.next()){
-                int perId= rs.getInt("id");
-                String perName= rs.getString("Name");
-                int perAge= rs.getInt("Age");
-                System.out.println(perId + " | " + perName + " | " + perAge);
-            }
-        } catch (SQLException ex) {
-            ex.printStackTrace();
-        }*/
+        main.checkTable("select * from persons");
+        Assert.assertNull(main.getName("select name from persons where id = 8"));
     }
 
     @AfterClass
