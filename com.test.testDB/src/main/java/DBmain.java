@@ -8,7 +8,7 @@ public class DBmain {
     private static ResultSet rs;
 
     public Connection setUp(){
-        String databaseURL = "jdbc:mysql://localhost:3306/Employees";
+        String databaseURL = "jdbc:mysql://localhost:3306/employees?serverTimezone=UTC";
         String user = "root";
         String password = "Password";
         connection = null;
