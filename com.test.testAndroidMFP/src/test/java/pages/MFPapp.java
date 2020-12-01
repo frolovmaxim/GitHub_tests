@@ -27,6 +27,26 @@ public class MFPapp {
         return new ForgotPasswordPage(driver);
     }
 
+    public AccountCreatedPage accountCreatedPage(){
+        return new AccountCreatedPage(driver);
+    }
+
+    public ActivityLevelPage activityLevelPage(){
+        return new ActivityLevelPage(driver);
+    }
+
+    public GoalPage goalPage(){
+        return new GoalPage(driver);
+    }
+
+    public SignUpPage signUpPage(){
+        return new SignUpPage(driver);
+    }
+
+    public YouPage youPage(){
+        return new YouPage(driver);
+    }
+
 
 
 

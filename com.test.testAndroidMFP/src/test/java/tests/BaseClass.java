@@ -37,7 +37,7 @@ public class BaseClass {
 
     }
 
-    @Test
+    @Test(enabled = false)
     public void sampleTest() {
         mfpApp.welcomePage().clickLoginButton();
         mfpApp.loginPage().tapForgotPasswordLink();
@@ -46,10 +46,25 @@ public class BaseClass {
         Assert.assertEquals(text, "Submit");
     }
 
-    @Test
+    @Test(enabled = false)
     public void loginTest(){
         mfpApp.welcomePage().clickLoginButton();
         mfpApp.loginPage().clearUsernameField().inputUsername("akaza400").inputPassword("111111").tapLoginButton();
+        try {
+            Thread.sleep(15000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Test
+    public void signUpTest(){
+        mfpApp.welcomePage().tapSignUpButton();
+        mfpApp.signUpPage().tapSignUpWithEmailButton();
+        mfpApp.goalPage().tapMaintainWeightButton();
+        mfpApp.activityLevelPage().tapLightlyActiveRadioButton();
+        mfpApp.youPage().tapGenderMaleRadioButton().tapBirthDateInputOption().tapOkButton().tapZipCodeInputField("34563").tapNextButton().tapHeightInputField().inputHeightEntryField("8").tapOkButton().tapCurrentWeightInputField().inputWeightEntryField("200").tapOkButton().tapNextButton().inputEmailInputField("gdfgdfgdfg@dfgdfgfdfg.dfgdf").inputPasswordInputField("gyhfhdfhd").inputUserNameInputField("fargo1231231231").tapSignUpButton();
+        mfpApp.accountCreatedPage().tapAccountCreatedButton();
         try {
             Thread.sleep(15000);
         } catch (InterruptedException e) {

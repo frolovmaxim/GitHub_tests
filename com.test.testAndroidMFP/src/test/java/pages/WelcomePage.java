@@ -26,6 +26,9 @@ public class WelcomePage {
     @FindBy(xpath = "//android.widget.Button[@resource-id = 'com.myfitnesspal.android:id/btnSignIn']")
     private WebElement loginButton1;
 
+    @FindBy(xpath = "//android.widget.Button[@resource-id = 'com.myfitnesspal.android:id/btnNewAccount']")
+    private WebElement sighUpButton;
+
 
 
     public static WebElement waitElementToBeClickableByLocator(
@@ -36,9 +39,16 @@ public class WelcomePage {
     }
 
     public LoginPage clickLoginButton(){
-        loginButton1.click();
+        waitElementToBeClickableByLocator(driver, loginButton1).click();
         return new LoginPage(driver);
     }
+
+    public SignUpPage tapSignUpButton(){
+        waitElementToBeClickableByLocator(driver, sighUpButton).click();
+        return new SignUpPage(driver);
+    }
+
+
 
 
 
