@@ -30,6 +30,9 @@ public class YouPage {
     @FindBy(xpath = "//android.widget.Button[@resource-id = 'android:id/button1']")
     private WebElement okButton;
 
+    @FindBy(xpath = "//android.widget.Button[@resource-id = 'com.myfitnesspal.android:id/confirm_button']")
+    private WebElement confirmButton;
+
     @FindBy(xpath = "//android.widget.EditText[@resource-id = 'com.myfitnesspal.android:id/zipcode']")
     private WebElement zipCodeInputField;
 
@@ -75,6 +78,12 @@ public class YouPage {
         waitElementToBeClickableByLocator(driver, okButton).click();
         return this;
     }
+
+    public YouPage tapConfirmButton() {
+        waitElementToBeClickableByLocator(driver, confirmButton).click();
+        return this;
+    }
+
 
     public YouPage tapZipCodeInputField(String number) {
         waitElementToBeClickableByLocator(driver, zipCodeInputField).sendKeys(number);

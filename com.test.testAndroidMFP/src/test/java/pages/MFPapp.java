@@ -31,14 +31,6 @@ public class MFPapp {
         return new AccountCreatedPage(driver);
     }
 
-    public ActivityLevelPage activityLevelPage(){
-        return new ActivityLevelPage(driver);
-    }
-
-    public GoalPage goalPage(){
-        return new GoalPage(driver);
-    }
-
     public SignUpPage signUpPage(){
         return new SignUpPage(driver);
     }

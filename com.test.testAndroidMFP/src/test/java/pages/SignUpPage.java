@@ -28,8 +28,28 @@ public class SignUpPage {
     @FindBy(xpath = "//android.widget.Button[@resource-id = 'com.myfitnesspal.android:id/login_button']")
     private WebElement sighUpWithEmailButton;
 
-    public GoalPage tapSignUpWithEmailButton() {
+    @FindBy(xpath = "//android.widget.TextView[@resource-id = 'com.myfitnesspal.android:id/prominent_action_item']")
+    private WebElement nextButton;
+
+    @FindBy(xpath = "//android.widget.RadioButton[@resource-id = 'com.myfitnesspal.android:id/maintain']")
+    private WebElement maintainWeightRadioButton;
+
+    @FindBy(xpath = "//android.widget.RadioButton[@resource-id = 'com.myfitnesspal.android:id/radioLightActive']")
+    private WebElement lightlyActiveRadioButton;
+
+
+    public SignUpPage tapSignUpWithEmailButton() {
         waitElementToBeClickableByLocator(driver, sighUpWithEmailButton).click();
-        return new GoalPage(driver);
+        return this;
+    }
+
+    public SignUpPage tapMaintainWeightButton() {
+        waitElementToBeClickableByLocator(driver, maintainWeightRadioButton).click();
+        return this;
+    }
+
+    public YouPage tapLightlyActiveRadioButton() {
+        waitElementToBeClickableByLocator(driver, lightlyActiveRadioButton).click();
+        return new YouPage(driver);
     }
 }
