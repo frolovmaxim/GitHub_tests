@@ -1,8 +1,5 @@
-package pages;
-
 import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.MobileElement;
-import org.openqa.selenium.WebDriver;
 
 public class MFPapp {
     AppiumDriver<MobileElement> driver;
@@ -35,9 +32,7 @@ public class MFPapp {
         return new SignUpPage(driver);
     }
 
-    public YouPage youPage(){
-        return new YouPage(driver);
-    }
+
 
 
 

@@ -1,4 +1,3 @@
-package tests;
 import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.MobileElement;
 import io.appium.java_client.remote.MobileCapabilityType;
@@ -6,8 +5,6 @@ import org.openqa.selenium.remote.CapabilityType;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.testng.Assert;
 import org.testng.annotations.*;
-import pages.ExcelUtils;
-import pages.MFPapp;
 import java.io.IOException;
 import java.net.URL;
 
@@ -15,8 +12,9 @@ public class BaseClass {
     AppiumDriver<MobileElement> driver;
     private MFPapp mfpApp;
     ExcelUtils excelUtils;
+    HelperMethods account;
 
-    @BeforeMethod
+    @BeforeMethod (groups = {"signUpTest"})
     public void setup(){
         try {
             DesiredCapabilities caps = new DesiredCapabilities();
@@ -32,6 +30,7 @@ public class BaseClass {
             caps.setCapability("unicodeKeyboard", true);
             caps.setCapability("appPackage", "com.myfitnesspal.android");
             caps.setCapability("appActivity", "com.myfitnesspal.android.login.Welcome");
+            account = new HelperMethods();
             excelUtils = new ExcelUtils();
             URL url = new URL("http://127.0.0.1:4723/wd/hub");
             driver = new AppiumDriver<MobileElement>(url, caps);
@@ -64,36 +63,29 @@ public class BaseClass {
         }
     }
 
-    @Test
+    @Test (groups = {"signUpTest"})
     public void signUpTest(){
-        String email = "stranger" + "%d" + "@mail.com";
-        String username = "stranger" + "%d";
-        int num = (int) (Math.random()*1000000);
-        String improvedEmail = String.format(email, num);
-        String improvedUsername = String.format(username, num);
-        String improvedPassword = "1" + num;
-
+        String email = account.getAccountDetails().email;
+        String username = account.getAccountDetails().username;
+        String password = account.getAccountDetails().password;
         mfpApp.welcomePage().tapSignUpButton();
-        mfpApp.signUpPage().tapSignUpWithEmailButton().tapMaintainWeightButton().tapLightlyActiveRadioButton();
-        mfpApp.youPage().tapGenderMaleRadioButton()
+        mfpApp.signUpPage()
+                .tapSignUpWithEmailButton()
+                .tapMaintainWeightButton()
+                .tapLightlyActiveRadioButton()
+                .tapGenderMaleRadioButton()
                 .tapBirthDateInputOption().tapConfirmButton()
                 .tapZipCodeInputField("34563").tapNextButton()
                 .tapHeightInputField().inputHeightEntryField("8")
                 .tapOkButton().tapCurrentWeightInputField().inputWeightEntryField("200")
-                .tapOkButton().tapNextButton().inputEmailInputField(improvedEmail)
-                .inputPasswordInputField(improvedPassword).inputUserNameInputField(improvedUsername).tapSignUpButton();
+                .tapOkButton().tapNextButton().inputEmailInputField(email)
+                .inputPasswordInputField(password).inputUserNameInputField(username).tapSignUpButton();
         mfpApp.accountCreatedPage().tapAccountCreatedButton();
-
-        excelUtils.setCellData(improvedUsername, improvedEmail, improvedPassword);
-
-        try {
-            Thread.sleep(15000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+        excelUtils.setCellData(username, email, password);
+        Assert.assertTrue(mfpApp.accountCreatedPage().annualSKUButtonIsDisplayed());
     }
 
-    @AfterMethod
+    @AfterMethod (groups = {"signUpTest"})
     public void teardown() throws IOException {
         Runtime.getRuntime().exec("adb shell am force-stop com.myfitnesspal.android");
         Runtime.getRuntime().exec("adb shell pm clear com.myfitnesspal.android");

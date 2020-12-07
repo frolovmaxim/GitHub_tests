@@ -1,5 +1,3 @@
-package pages;
-
 import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.MobileElement;
 import org.openqa.selenium.WebElement;
@@ -21,6 +19,9 @@ public class AccountCreatedPage {
     @FindBy(xpath = "//android.widget.Button[@resource-id = 'com.myfitnesspal.android:id/start_tracking']")
     private WebElement accountCreatedButton;
 
+    @FindBy(xpath = "//android.widget.Button[@resource-id = 'yearly-subscription-btn']")
+    private WebElement annualSKUButton;
+
     public static WebElement waitElementToBeClickableByLocator(
             AppiumDriver<MobileElement> driver, WebElement webElement) {
         WebDriverWait wait = new WebDriverWait(driver, 30);
@@ -28,9 +29,20 @@ public class AccountCreatedPage {
         return wait.until(ExpectedConditions.elementToBeClickable(webElement));
     }
 
+    public static WebElement waitElementToBeVisibleByLocator(
+            AppiumDriver<MobileElement> driver, WebElement webElement) {
+        WebDriverWait wait = new WebDriverWait(driver, 15);
+
+        return wait.until(ExpectedConditions.visibilityOf(webElement));
+    }
+
     public HomePage tapAccountCreatedButton() {
         waitElementToBeClickableByLocator(driver, accountCreatedButton).click();
         return new HomePage(driver);
+    }
+
+    public Boolean annualSKUButtonIsDisplayed(){
+        return waitElementToBeVisibleByLocator(driver, annualSKUButton).isDisplayed();
     }
 
 
