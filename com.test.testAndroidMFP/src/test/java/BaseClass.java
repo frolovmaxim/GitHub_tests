@@ -65,9 +65,10 @@ public class BaseClass {
 
     @Test (groups = {"signUpTest"})
     public void signUpTest(){
-        String email = account.getAccountDetails().email;
-        String username = account.getAccountDetails().username;
-        String password = account.getAccountDetails().password;
+        String improvedPassword = account.getAccountDetails().password;
+        String improvedEmail = account.getAccountDetails().email;
+        String improvedUsername = account.getAccountDetails().username;
+
         mfpApp.welcomePage().tapSignUpButton();
         mfpApp.signUpPage()
                 .tapSignUpWithEmailButton()
@@ -78,10 +79,10 @@ public class BaseClass {
                 .tapZipCodeInputField("34563").tapNextButton()
                 .tapHeightInputField().inputHeightEntryField("8")
                 .tapOkButton().tapCurrentWeightInputField().inputWeightEntryField("200")
-                .tapOkButton().tapNextButton().inputEmailInputField(email)
-                .inputPasswordInputField(password).inputUserNameInputField(username).tapSignUpButton();
+                .tapOkButton().tapNextButton().inputEmailInputField(improvedEmail)
+                .inputPasswordInputField(improvedPassword).inputUserNameInputField(improvedUsername).tapSignUpButton();
         mfpApp.accountCreatedPage().tapAccountCreatedButton();
-        excelUtils.setCellData(username, email, password);
+        excelUtils.setCellData(improvedUsername, improvedEmail, improvedPassword);
         Assert.assertTrue(mfpApp.accountCreatedPage().annualSKUButtonIsDisplayed());
     }
 
