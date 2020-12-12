@@ -29,6 +29,7 @@ public class BaseClass {
             caps.setCapability("resetKeyboard", true);
             caps.setCapability("unicodeKeyboard", true);
             caps.setCapability("appPackage", "com.myfitnesspal.android");
+            //caps.setCapability("appWaitActivity", "com.myfitnesspal.android.login.*");
             caps.setCapability("appActivity", "com.myfitnesspal.android.login.Welcome");
             account = new HelperMethods();
             excelUtils = new ExcelUtils();
@@ -63,7 +64,7 @@ public class BaseClass {
         }
     }
 
-    @Test (groups = {"signUpTest"})
+    @Test (groups = {"signUpTest"}, enabled = false)
     public void signUpTest(){
         String improvedPassword = account.getAccountDetails().password;
         String improvedEmail = account.getAccountDetails().email;
@@ -85,6 +86,27 @@ public class BaseClass {
         excelUtils.setCellData(improvedUsername, improvedEmail, improvedPassword);
         Assert.assertTrue(mfpApp.accountCreatedPage().annualSKUButtonIsDisplayed());
     }
+
+    @Test
+    public void monthlyNonTrialPremiumPurchaseTest(){
+        String password = excelUtils.getCellData(2).password;
+        //String email = excelUtils.getCellData(1).email;
+        String username = excelUtils.getCellData(2).username;
+
+        mfpApp.welcomePage().clickLoginButton();
+        mfpApp.loginPage().clearUsernameField().inputUsername(username).inputPassword(password).tapLoginButton();
+        mfpApp.upsellScreen().clickYearlySkuButton().clickSubscribeButton().clickCloseOnboardingButton();
+        Assert.assertTrue(mfpApp.upsellScreen().getHomeActivity());
+
+
+        try {
+            Thread.sleep(15000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
+
+
 
     @AfterMethod (groups = {"signUpTest"})
     public void teardown() throws IOException {

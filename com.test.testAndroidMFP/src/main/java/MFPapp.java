@@ -32,7 +32,9 @@ public class MFPapp {
         return new SignUpPage(driver);
     }
 
-
+    public UpsellScreen upsellScreen(){
+        return new UpsellScreen(driver);
+    }
 
 
 

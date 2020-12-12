@@ -2,11 +2,7 @@ import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.IOException;
-
+import java.io.*;
 
 
 public class ExcelUtils {
@@ -24,11 +20,29 @@ public class ExcelUtils {
 
     }*/
 
-/*    public void getCellData(){
-        DataFormatter formatter = new DataFormatter();
-        Object value = formatter.formatCellValue(sheet.getRow(1).getCell(0));
-        System.out.println(value);
-    }*/
+    public Account getCellData(int rowNumber){
+
+        try {
+            String excelFilePath = ".\\users\\users.xlsx";
+            FileInputStream file = new FileInputStream(new File(excelFilePath));
+
+            XSSFWorkbook workbook = new XSSFWorkbook(file);
+            XSSFSheet sheet = workbook.getSheetAt(0);
+            int columnCount = 0;
+            Row row = sheet.getRow(rowNumber);
+            Cell cell = row.getCell(columnCount++);
+            String username = cell.getStringCellValue();
+            Cell cell1 = row.getCell(columnCount++);
+            String email = cell1.getStringCellValue();
+            Cell cell2 = row.getCell(columnCount);
+            String pwd = cell2.getStringCellValue();
+            file.close();
+            return new Account(email, username, pwd);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
 
 /*    public void getRowCount(){
         int rowCount = sheet.getPhysicalNumberOfRows();
