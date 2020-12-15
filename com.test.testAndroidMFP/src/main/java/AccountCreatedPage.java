@@ -45,5 +45,4 @@ public class AccountCreatedPage {
         return waitElementToBeVisibleByLocator(driver, annualSKUButton).isDisplayed();
     }
 
-
 }

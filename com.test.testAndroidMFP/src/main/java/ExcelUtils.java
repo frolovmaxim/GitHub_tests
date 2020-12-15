@@ -72,6 +72,33 @@ public class ExcelUtils {
             workbook.write(outputStream);
             workbook.close();
             outputStream.close();
+            inputStream.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void deleteCellData(){
+        String excelFilePath = ".\\users\\users.xlsx";
+        try {
+            FileInputStream inputStream = new FileInputStream(new File(excelFilePath));
+            Workbook workbook = WorkbookFactory.create(inputStream);
+            Sheet sheet = workbook.getSheetAt(0);
+
+            int columnCount = 0;
+            Row row = sheet.getRow(1);
+            Cell cell = row.getCell(columnCount);
+            cell.setCellValue("");
+            Cell cell1 = row.createCell(++columnCount);
+            cell1.setCellValue("");
+            Cell cell2 = row.createCell(++columnCount);
+            cell2.setCellValue("");
+
+            FileOutputStream outputStream = new FileOutputStream(excelFilePath);
+            workbook.write(outputStream);
+            workbook.close();
+            outputStream.close();
+            inputStream.close();
         } catch (IOException e) {
             e.printStackTrace();
         }

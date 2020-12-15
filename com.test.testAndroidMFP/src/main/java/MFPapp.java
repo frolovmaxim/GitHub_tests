@@ -36,6 +36,10 @@ public class MFPapp {
         return new UpsellScreen(driver);
     }
 
+    public PlayStore playStore(){
+        return new PlayStore(driver);
+    }
+
 
 
 

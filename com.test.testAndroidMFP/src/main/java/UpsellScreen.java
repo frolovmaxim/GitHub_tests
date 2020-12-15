@@ -12,15 +12,22 @@ public class UpsellScreen {
 
     public UpsellScreen(AppiumDriver<MobileElement> webDriver) {
         this.driver = webDriver;
-        wait = new WebDriverWait(driver, 60);
+        wait = new WebDriverWait(driver, 100);
         PageFactory.initElements(driver, this);
     }
 
     public WebElement waitElementToBeClickableByLocator(
             AppiumDriver<MobileElement> driver, WebElement webElement) {
-        WebDriverWait wait = new WebDriverWait(driver, 60);
+        WebDriverWait wait = new WebDriverWait(driver, 100);
 
         return wait.until(ExpectedConditions.elementToBeClickable(webElement));
+    }
+
+    public static WebElement waitElementToBeVisibleByLocator(
+            AppiumDriver<MobileElement> driver, WebElement webElement) {
+        WebDriverWait wait = new WebDriverWait(driver, 15);
+
+        return wait.until(ExpectedConditions.visibilityOf(webElement));
     }
 
     @FindBy(xpath = "//android.widget.Button[@resource-id = 'yearly-subscription-btn']")
@@ -31,6 +38,9 @@ public class UpsellScreen {
 
     @FindBy(xpath = "//android.widget.ImageView[@resource-id = 'com.myfitnesspal.android:id/btnCloseOnboarding']")
     private WebElement closeOnboardingButton;
+
+    @FindBy(xpath = "//android.widget.ImageView[@resource-id = 'com.myfitnesspal.android:id/close_button']")
+    private WebElement closeUpsellScreen;
 
     @FindBy(xpath = "//android.view.View")
     private WebElement homeActivity;
@@ -50,15 +60,17 @@ public class UpsellScreen {
         return this;
     }
 
-    public HomePage clickToClosePopup(){
-        waitElementToBeClickableByLocator(driver, closeOnboardingButton).click();
-        return new HomePage(driver);
+    public UpsellScreen clickToClosePopup(){
+        waitElementToBeClickableByLocator(driver, homeActivity).click();
+        return this;
     }
 
     public boolean getHomeActivity(){
-        return waitElementToBeClickableByLocator(driver, closeOnboardingButton).isDisplayed();
+        return waitElementToBeClickableByLocator(driver, homeActivity).isDisplayed();
     }
 
-
+    public Boolean closeUpsellButtonIsDisplayed(){
+        return waitElementToBeVisibleByLocator(driver, closeUpsellScreen).isDisplayed();
+    }
 
 }
