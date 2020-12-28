@@ -14,7 +14,7 @@ public class Tests {
     AppiumDriver<MobileElement> driver;
     private MFPapp mfpApp;
 
-    @BeforeMethod(groups = {"signUpTest"})
+    @BeforeMethod(groups = {"signUpPlusAPP", "signUpPlusMPP"})
     public void setup() {
         try {
             DesiredCapabilities caps = new DesiredCapabilities();
@@ -41,7 +41,7 @@ public class Tests {
         }
     }
 
-        @Test
+        @Test(groups = {"signUpPlusAPP", "signUpPlusMPP"}, priority = 3)
         public void cancelSubsTest(){
             mfpApp.playStore().tapPlayStoreIcon()
                     .tapPlayStoreSandwich()
@@ -53,7 +53,7 @@ public class Tests {
                     .tapCancelSubscriptionSecond();
         }
 
-    @AfterMethod
+    @AfterMethod(groups = {"signUpPlusAPP", "signUpPlusMPP"})
     public void teardown() throws IOException {
         Runtime.getRuntime().exec("adb shell am force-stop com.android.vending");
 

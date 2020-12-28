@@ -33,6 +33,9 @@ public class UpsellScreen {
     @FindBy(xpath = "//android.widget.Button[@resource-id = 'yearly-subscription-btn']")
     private WebElement yearlySKU;
 
+    @FindBy(xpath = "//android.widget.Button[@resource-id = 'monthly-subscription-btn']")
+    private WebElement monthlySKU;
+
     @FindBy(xpath = "//android.widget.Button[@resource-id = 'com.android.vending:id/0_resource_name_obfuscated']")
     private WebElement subscribeButton;
 
@@ -47,6 +50,11 @@ public class UpsellScreen {
 
     public UpsellScreen clickYearlySkuButton(){
         waitElementToBeClickableByLocator(driver, yearlySKU).click();
+        return this;
+    }
+
+    public UpsellScreen clickMonthlySkuButton(){
+        waitElementToBeClickableByLocator(driver, monthlySKU).click();
         return this;
     }
 

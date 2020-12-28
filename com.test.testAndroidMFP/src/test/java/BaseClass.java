@@ -14,7 +14,7 @@ public class BaseClass {
     ExcelUtils excelUtils;
     HelperMethods account;
 
-    @BeforeMethod
+    @BeforeMethod (groups = {"signUpPlusAPP", "signUpPlusMPP"})
     public void setup(){
         try {
             DesiredCapabilities caps = new DesiredCapabilities();
@@ -64,7 +64,7 @@ public class BaseClass {
         }
     }
 
-    @Test
+    @Test (groups = {"signUpPlusAPP", "signUpPlusMPP"}, priority = 1)
     public void signUpTest(){
         String improvedPassword = account.getAccountDetails().password;
         String improvedEmail = account.getAccountDetails().email;
@@ -87,23 +87,22 @@ public class BaseClass {
         Assert.assertTrue(mfpApp.upsellScreen().closeUpsellButtonIsDisplayed());
     }
 
-    @Test (dependsOnMethods = "signUpTest")
+    @Test (dependsOnMethods = "signUpTest", groups = {"signUpPlusAPP"}, priority = 2)
     public void annualNonTrialPremiumPurchaseTest(){
         try {
             Thread.sleep(10000);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-        String password = excelUtils.getCellData(2).password;
+        String password = excelUtils.getCellData().password;
         //String email = excelUtils.getCellData(1).email;
-        String username = excelUtils.getCellData(2).username;
+        String username = excelUtils.getCellData().username;
 
         mfpApp.welcomePage().clickLoginButton();
         mfpApp.loginPage().clearUsernameField().inputUsername(username).inputPassword(password).tapLoginButton();
         mfpApp.upsellScreen().clickYearlySkuButton().clickSubscribeButton().clickCloseOnboardingButton();
         excelUtils.deleteCellData();
         Assert.assertTrue(mfpApp.upsellScreen().clickToClosePopup().getHomeActivity());
-
 
         try {
             Thread.sleep(15000);
@@ -112,8 +111,31 @@ public class BaseClass {
         }
     }
 
+    @Test (dependsOnMethods = "signUpTest", groups = {"signUpPlusMPP"}, priority = 2)
+    public void monthlyNonTrialPremiumPurchaseTest() {
+        try {
+            Thread.sleep(10000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        String password = excelUtils.getCellData().password;
+        //String email = excelUtils.getCellData(1).email;
+        String username = excelUtils.getCellData().username;
 
-    @AfterMethod
+        mfpApp.welcomePage().clickLoginButton();
+        mfpApp.loginPage().clearUsernameField().inputUsername(username).inputPassword(password).tapLoginButton();
+        mfpApp.upsellScreen().clickMonthlySkuButton().clickSubscribeButton().clickCloseOnboardingButton();
+        excelUtils.deleteCellData();
+        Assert.assertTrue(mfpApp.upsellScreen().clickToClosePopup().getHomeActivity());
+
+      try {
+            Thread.sleep(15000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @AfterMethod(groups = {"signUpPlusAPP", "signUpPlusMPP"})
     public void teardown() throws IOException {
         Runtime.getRuntime().exec("adb shell am force-stop com.myfitnesspal.android");
         Runtime.getRuntime().exec("adb shell pm clear com.myfitnesspal.android");

@@ -20,7 +20,7 @@ public class ExcelUtils {
 
     }*/
 
-    public Account getCellData(int rowNumber){
+    public Account getCellData(){
 
         try {
             String excelFilePath = ".\\users\\users.xlsx";
@@ -28,13 +28,12 @@ public class ExcelUtils {
 
             XSSFWorkbook workbook = new XSSFWorkbook(file);
             XSSFSheet sheet = workbook.getSheetAt(0);
-            int columnCount = 0;
-            Row row = sheet.getRow(rowNumber);
-            Cell cell = row.getCell(columnCount++);
+            Row row = sheet.getRow(0);
+            Cell cell = row.getCell(0);
             String username = cell.getStringCellValue();
-            Cell cell1 = row.getCell(columnCount++);
+            Cell cell1 = row.getCell(1);
             String email = cell1.getStringCellValue();
-            Cell cell2 = row.getCell(columnCount);
+            Cell cell2 = row.getCell(2);
             String pwd = cell2.getStringCellValue();
             file.close();
             return new Account(email, username, pwd);
@@ -59,13 +58,13 @@ public class ExcelUtils {
             int rowCount = sheet.getLastRowNum() + 1;
             //Sheet newSheet = workbook1.createSheet("Comments2");
             //int rowCount = 0;
-            int columnCount = 0;
+
             Row row = sheet.createRow(rowCount);
-            Cell cell = row.createCell(columnCount);
+            Cell cell = row.createCell(0);
             cell.setCellValue(username);
-            Cell cell1 = row.createCell(++columnCount);
+            Cell cell1 = row.createCell(1);
             cell1.setCellValue(email);
-            Cell cell2 = row.createCell(++columnCount);
+            Cell cell2 = row.createCell(2);
             cell2.setCellValue(password);
 
             FileOutputStream outputStream = new FileOutputStream(excelFilePath);
@@ -85,14 +84,19 @@ public class ExcelUtils {
             Workbook workbook = WorkbookFactory.create(inputStream);
             Sheet sheet = workbook.getSheetAt(0);
 
-            int columnCount = 0;
+            for (int i = sheet.getLastRowNum(); i >= 0; i--) {
+                sheet.removeRow(sheet.getRow(i));
+            }
+
+
+/*            int columnCount = 0;
             Row row = sheet.getRow(1);
             Cell cell = row.getCell(columnCount);
             cell.setCellValue("");
             Cell cell1 = row.createCell(++columnCount);
             cell1.setCellValue("");
             Cell cell2 = row.createCell(++columnCount);
-            cell2.setCellValue("");
+            cell2.setCellValue("");*/
 
             FileOutputStream outputStream = new FileOutputStream(excelFilePath);
             workbook.write(outputStream);

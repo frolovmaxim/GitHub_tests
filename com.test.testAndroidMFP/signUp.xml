@@ -2,10 +2,25 @@
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
 <suite name="Sign up accounts creator">
     <test name = "SignUp test">
-
+        <groups>
+            <run>
+                <include name="signUpPlusAPP" />
+            </run>
+        </groups>
         <classes>
             <class name="BaseClass" />
             <class name="Tests" />
         </classes>
-</test>
+    </test>
+    <test name = "SignUp1 test">
+        <groups>
+            <run>
+                <include name="signUpPlusMPP" />
+            </run>
+        </groups>
+        <classes>
+            <class name="BaseClass" />
+            <class name="Tests" />
+        </classes>
+    </test>
 </suite>
